@@ -1,0 +1,42 @@
+﻿@model Data.Models.TimelineEvent
+
+@{
+    ViewBag.Title = "Event";
+}
+
+<h2>Event</h2>
+
+<div>
+    <h4>TimelineEvent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MediaID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MediaID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
