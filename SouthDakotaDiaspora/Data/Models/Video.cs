@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class Video
+    public class Video : Activity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public PlatformType Platform { get; set; }
         public DateTime ReleaseDate { get; set; }
     }
 }

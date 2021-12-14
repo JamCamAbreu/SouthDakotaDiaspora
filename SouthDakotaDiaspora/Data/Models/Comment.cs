@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class Game : Activity
+    public class Comment
     {
+        public int Id { get; set; }
+        public string Message { get; set; }
+        public User UserId { get; set; }
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
-        [Display(Name = "Release Date")]
-        public DateTime ReleaseDate { get; set; }
+        [Display(Name = "Date Created")]
+        public DateTime DateCreated { get; set; }
     }
 }

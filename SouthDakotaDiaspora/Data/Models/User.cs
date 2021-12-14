@@ -13,5 +13,6 @@ namespace Data.Models
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

@@ -10,9 +10,6 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.MediaID)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.StartTime)
         </th>
         <th>
@@ -23,9 +20,6 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.MediaID)
-        </td>
         <td>
             @Html.DisplayFor(modelItem => item.StartTime)
         </td>

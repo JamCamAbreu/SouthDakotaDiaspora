@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class Book
+    public class Book : Activity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Publish Date")]
         public DateTime PublishDate { get; set; }
+        public string Author { get; set; }
+        [Display(Name = "Number of Pages")]
+        public int NumberPages { get; set; }
     }
 }
