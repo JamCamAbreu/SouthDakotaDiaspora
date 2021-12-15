@@ -17,6 +17,9 @@ namespace Data.Services
 
         public void Add(User user)
         {
+            // Must be updated explicitely in SQL for admin access
+            user.UserRole = UserRoleType.Contributor; 
+
             database.Users.Add(user);
             database.SaveChanges();
         }
@@ -56,6 +59,7 @@ namespace Data.Services
                 existing.Password = user.Password;
                 existing.FirstName = user.FirstName;
                 existing.LastName = user.LastName;
+                existing.UserRole = user.UserRole;
                 database.SaveChanges();
             }
         }

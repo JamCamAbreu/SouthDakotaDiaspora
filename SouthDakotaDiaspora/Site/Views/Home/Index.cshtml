@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Data.Models.User>
+﻿@model Data.Models.User
 @{
     ViewBag.Title = "Home Page";
 }
@@ -7,22 +7,31 @@
     <h2>South Dakota Diaspora</h2>
 </div>
 <div>
+
     @if (Session["UserName"] != null)
     {
+    <div>
         <text>
-            Welcome @Session["UserName"].ToString()
+            <h2>Welcome, </h2>
+            <h4>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName) (@Html.DisplayFor(model => model.Username))</h4>
         </text>
+    </div>
     }
+    <br />
+    <div>
+        @if (Session["UserName"] == null)
+        {
+            <button>
+                @Html.ActionLink("Create Account", "Create", "Home")
+            </button>
+        }
+    </div>
 
-    @if (Session["UserName"] == null)
-    {
+    <div>
         <button>
-            @Html.ActionLink("Create Account", "Create", "Home")
+            @(Session["UserName"] == null ? @Html.ActionLink("Log In", "Login", "Home") : @Html.ActionLink("Log Out", "Logout", "Home"))
         </button>
-    }
+    </div>
 
-    <button>
-        @(Session["UserName"] == null ? @Html.ActionLink("Log In", "Login", "Home") : @Html.ActionLink("Log Out", "Logout", "Home"))
-    </button>
 
 </div>

@@ -12,10 +12,10 @@ namespace Data.Services
         {
             this.users = new List<User>()
             {
-                new User() { Id = 1, FirstName = "Cam", LastName = "Abreu", Username = "Jerof", Password="test123" },
-                new User() { Id = 2, FirstName = "Adam", LastName = "Rezich", Username = "Takua", Password="test123" },
-                new User() { Id = 3, FirstName = "Carson", LastName = "Crawford", Username = "Mcbymef", Password="test123" },
-                new User() { Id = 4, FirstName = "Niki", LastName = "Abreu", Username = "Muffins", Password="test123" }
+                new User() { Id = 1, FirstName = "Cam", LastName = "Abreu", Username = "Jerof", Password="test123", UserRole = UserRoleType.Admin },
+                new User() { Id = 2, FirstName = "Adam", LastName = "Rezich", Username = "Takua", Password="test123", UserRole = UserRoleType.Contributor },
+                new User() { Id = 3, FirstName = "Carson", LastName = "Crawford", Username = "Mcbymef", Password="test123", UserRole = UserRoleType.Contributor },
+                new User() { Id = 4, FirstName = "Niki", LastName = "Abreu", Username = "Muffins", Password="test123", UserRole = UserRoleType.Contributor }
             };
         }
         public IEnumerable<User> GetAll()

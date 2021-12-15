@@ -20,6 +20,19 @@ namespace Site.Controllers
         // Request to the root address
         public ActionResult Index()
         {
+            if (Session["UserID"] != null)
+            {
+                int userid;
+                if (int.TryParse(Session["UserID"].ToString(), out userid))
+                {
+                    User user = db.Get(userid);
+                    if (user != null)
+                    {
+                        return View(user);
+                    }
+                }
+            }
+            
             return View();
         }
 
@@ -58,6 +71,7 @@ namespace Site.Controllers
                 {
                     Session["UserID"] = existing.Id.ToString();
                     Session["UserName"] = existing.Username;
+                    Session["Role"] = existing.UserRole.ToString();
                     return RedirectToAction("Index");
                 }
                 else
@@ -79,6 +93,10 @@ namespace Site.Controllers
             if (Session["UserName"] != null)
             {
                 Session.Remove("UserName");
+            }
+            if (Session["Role"] != null)
+            {
+                Session.Remove("Role");
             }
             return RedirectToAction("LogoutSuccess");
         }
