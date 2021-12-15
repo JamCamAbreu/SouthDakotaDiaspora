@@ -64,6 +64,7 @@
     <Compile Include="Services\IGameData.cs" />
     <Compile Include="Services\ITimelineEventData.cs" />
     <Compile Include="Services\SouthDakotaDiasporaDbContext.cs" />
+    <Compile Include="Services\SqlGameData.cs" />
     <Compile Include="Services\TestGameData.cs" />
     <Compile Include="Services\TestTimelineEventData.cs" />
     <Compile Include="Services\TestUserData.cs" />

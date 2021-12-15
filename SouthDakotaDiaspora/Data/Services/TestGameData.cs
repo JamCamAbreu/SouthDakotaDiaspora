@@ -47,5 +47,14 @@ namespace Data.Services
             }
 
         }
+
+        public void Delete(int id)
+        {
+            var game = this.Get(id);
+            if (game != null)
+            {
+                this.games.Remove(game);
+            }
+        }
     }
 }

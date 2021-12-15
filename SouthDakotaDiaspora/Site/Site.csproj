@@ -254,6 +254,7 @@
     <Content Include="Views\Games\Details.cshtml" />
     <Content Include="Views\Games\NotFound.cshtml" />
     <Content Include="Views\Games\Edit.cshtml" />
+    <Content Include="Views\Games\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

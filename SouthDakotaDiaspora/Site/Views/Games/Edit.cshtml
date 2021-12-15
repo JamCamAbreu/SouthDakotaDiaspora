@@ -4,7 +4,8 @@
     ViewBag.Title = "Edit";
 }
 
-@section Scripts {
+@*DATE AND TIME PICKER*@
+@*@section Scripts {
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/cssjqryUi")
     @Scripts.Render("~/bundles/jquerytimepicker")
@@ -22,11 +23,26 @@
             });
         });
     </script>
+}*@
+
+
+@*DATE PICKER (No time)*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/bundles/jquerytimepicker")
+    @Styles.Render("~/Content/jquerytimepicker")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+            });
+        });
+    </script>
 }
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Games", FormMethod.Get, new { @autocomplete = "off" }))
 {
     @Html.AntiForgeryToken()
 

@@ -31,9 +31,10 @@ namespace Site
             #endregion
 
             #region Game Data
-            builder.RegisterType<TestGameData>()
+            builder.RegisterType<SqlGameData>()
                 .As<IGameData>()
-                .SingleInstance();
+                .InstancePerRequest();
+            builder.RegisterType<SouthDakotaDiasporaDbContext>().InstancePerRequest();
             #endregion
 
             #region Show Data

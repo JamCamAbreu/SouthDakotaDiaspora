@@ -10,7 +10,7 @@ namespace Data.Models
     public class Game : Activity
     {
         [DataType(DataType.DateTime)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd-MM-yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Release Date")]
         public DateTime ReleaseDate { get; set; }
     }
