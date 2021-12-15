@@ -35,6 +35,14 @@ namespace Data.Services
             this.games.Add(game);
         }
 
+        public void Delete(int id)
+        {
+            var game = this.Get(id);
+            if (game != null)
+            {
+                this.games.Remove(game);
+            }
+        }
         public void Update(Game game)
         {
             Game existing = this.Get(game.Id);
@@ -44,16 +52,6 @@ namespace Data.Services
                 existing.Description = game.Description;
                 existing.Platform = game.Platform;
                 existing.ReleaseDate = game.ReleaseDate;
-            }
-
-        }
-
-        public void Delete(int id)
-        {
-            var game = this.Get(id);
-            if (game != null)
-            {
-                this.games.Remove(game);
             }
         }
     }

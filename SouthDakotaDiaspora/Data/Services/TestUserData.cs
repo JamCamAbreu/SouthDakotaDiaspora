@@ -18,10 +18,45 @@ namespace Data.Services
                 new User() { Id = 4, FirstName = "Niki", LastName = "Abreu", Username = "Muffins", Password="test123" }
             };
         }
-
         public IEnumerable<User> GetAll()
         {
             return this.users.OrderBy(u => u.LastName);
+        }
+
+        public User Get(int id)
+        {
+            return users.FirstOrDefault(u => u.Id == id);
+        }
+        public User Get(string username, string password)
+        {
+            return users.FirstOrDefault(u => u.Username == username && u.Password == password);
+        }
+
+        public void Add(User user)
+        {
+            user.Id = this.users.Max(u => u.Id) + 1;
+            this.users.Add(user);
+        }
+
+        public void Delete(int id)
+        {
+            var user = this.Get(id);
+            if (user != null)
+            {
+                this.users.Remove(user);
+            }
+        }
+
+        public void Update(User user)
+        {
+            User existing = this.Get(user.Id);
+            if (existing != null)
+            {
+                existing.Username = user.Username;
+                existing.Password = user.Password;
+                existing.FirstName = user.FirstName;
+                existing.LastName = user.LastName;
+            }
         }
     }
 }

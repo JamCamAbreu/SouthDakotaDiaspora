@@ -17,11 +17,12 @@ namespace Site
         {
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterType<SouthDakotaDiasporaDbContext>().InstancePerRequest();
 
             #region User Data
-            builder.RegisterType<TestUserData>()
+            builder.RegisterType<SqlUserData>()
                    .As<IUserData>()
-                   .SingleInstance();
+                   .InstancePerRequest();
             #endregion
 
             #region Timeline Data
@@ -34,7 +35,6 @@ namespace Site
             builder.RegisterType<SqlGameData>()
                 .As<IGameData>()
                 .InstancePerRequest();
-            builder.RegisterType<SouthDakotaDiasporaDbContext>().InstancePerRequest();
             #endregion
 
             #region Show Data

@@ -4,15 +4,25 @@
 }
 
 <div class="jumbotron">
-    <h1>South Dakota Diaspora</h1>
-    <div>
-        There are @Model.Count() users in the database.
-    </div>
+    <h2>South Dakota Diaspora</h2>
 </div>
-
-<ul>
-    @foreach(var user in Model)
+<div>
+    @if (Session["UserName"] != null)
     {
-        <li>@user.FirstName @user.LastName</li>
+        <text>
+            Welcome @Session["UserName"].ToString()
+        </text>
     }
-</ul>
+
+    @if (Session["UserName"] == null)
+    {
+        <button>
+            @Html.ActionLink("Create Account", "Create", "Home")
+        </button>
+    }
+
+    <button>
+        @(Session["UserName"] == null ? @Html.ActionLink("Log In", "Login", "Home") : @Html.ActionLink("Log Out", "Logout", "Home"))
+    </button>
+
+</div>

@@ -48,9 +48,12 @@ namespace Data.Services
 
         public void Delete(int id)
         {
-            var game = database.Games.Find(id);
-            database.Games.Remove(game);
-            database.SaveChanges();
+            Game game = database.Games.Find(id);
+            if (game != null)
+            {
+                database.Games.Remove(game);
+                database.SaveChanges();
+            }
         }
     }
 }

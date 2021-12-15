@@ -17,6 +17,7 @@ namespace Data.Models
         [MaxLength(64)]
         public string Username { get; set; }
         [MaxLength(32)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public List<Comment> Comments { get; set; }
     }
