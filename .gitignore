@@ -332,4 +332,6 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
-SouthDakotaDiaspora/Site/Web.config
+
+# Cam's Custom Ignore Files
+SouthDakotaDiaspora/Site/ConnectionStrings.config
