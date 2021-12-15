@@ -25,6 +25,18 @@ namespace Site
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Create Bundle for JQueryUI
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                      "~/Scripts/jquery-ui-{version}.js"));
+            bundles.Add(new StyleBundle("~/Content/cssjqryUi").Include(
+                   "~/Content/themes/base/jquery-ui.css"));
+
+            // Create Bundle for JQuery Timepicker
+            bundles.Add(new ScriptBundle("~/bundles/jquerytimepicker").Include(
+                "~/Scripts/jquery-ui-timepicker-addon.js"));
+            bundles.Add(new StyleBundle("~/Content/jquerytimepicker").Include(
+                "~/Content/themes/timepicker/jquery-ui-timepicker-addon.css"));
         }
     }
 }

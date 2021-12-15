@@ -14,7 +14,7 @@ namespace Data.Services
         {
             this.games = new List<Game>()
             {
-                new Game() { Id = 1, Name = "Valheim", Platform = PlatformType.Steam, ReleaseDate = DateTime.Parse("02/02/2021")},
+                new Game() { Id = 1, Name = "Valheim", Platform = PlatformType.Steam, ReleaseDate = DateTime.Parse("12/14/2021 10:32 -0700")},
                 new Game() { Id = 2, Name = "Mario Kart 8", Platform = PlatformType.NintendoSwitch, ReleaseDate = DateTime.Parse("10/16/2020")},
                 new Game() { Id = 3, Name = "Troyes", Platform = PlatformType.BrowserSite, ReleaseDate = DateTime.Parse("01/01/2016")},
             };

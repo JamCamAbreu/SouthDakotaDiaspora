@@ -10,6 +10,7 @@ namespace Data.Models
     public class Comment
     {
         public int Id { get; set; }
+        [MaxLength(256)]
         public string Message { get; set; }
         public User UserId { get; set; }
         [DataType(DataType.DateTime)]
