@@ -17,9 +17,6 @@ namespace Data.Services
 
         public void Add(User user)
         {
-            // Must be updated explicitely in SQL for admin access
-            user.UserRole = UserRoleType.Contributor; 
-
             database.Users.Add(user);
             database.SaveChanges();
         }
@@ -46,7 +43,7 @@ namespace Data.Services
         public IEnumerable<User> GetAll()
         {
             return from u in database.Users
-                   orderby u.LastName
+                   orderby u.Username
                    select u;
         }
 

@@ -4,13 +4,20 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Users</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+@if (Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString())
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -18,16 +25,17 @@
             @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Username)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.UserRole)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
+    @foreach (Data.Models.User item in Model)
+    {
+<tr style="@(Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString() ? "font-weight: 600" : "")">
+    <td>
+        @Html.DisplayFor(modelItem => item.Username)
+    </td>
     <td>
         @Html.DisplayFor(modelItem => item.FirstName)
     </td>
@@ -35,17 +43,29 @@
         @Html.DisplayFor(modelItem => item.LastName)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Username)
-    </td>
-    <td>
         @Html.DisplayFor(modelItem => item.UserRole)
     </td>
+
     <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        @Html.ActionLink("Info", "Details", new { id = item.Id })
+
+        @if (Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString() ||
+            (Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString() && item.UserRole == Data.Models.UserRoleType.Contributor))
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+        }
+
+        @if ((Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString() && // You are an admin AND
+                item.UserRole != Data.Models.UserRoleType.Admin) || // This person is a contributor
+
+            // OR
+
+            (Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString())) // You are yourself
+        {
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        }
     </td>
 </tr>
-}
+    }
 
 </table>

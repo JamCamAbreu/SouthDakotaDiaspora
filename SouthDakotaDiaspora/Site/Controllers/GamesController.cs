@@ -65,8 +65,8 @@ namespace Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Game game)
         {
-            var model = db.Get(game.Id);
-            if (model == null)
+            var existing = db.Get(game.Id);
+            if (existing == null)
             {
                 return View("NotFound");
             }

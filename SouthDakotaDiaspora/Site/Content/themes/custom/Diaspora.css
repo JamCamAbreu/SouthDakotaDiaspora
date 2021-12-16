@@ -1,0 +1,11 @@
+﻿
+
+.confirmation-messages {
+    text-align: center;
+    background: #84e020b8;
+    font-weight: 600;
+    padding: 1px;
+    margin: 6px;
+    border: 2px outset #7cb24166;
+}
+

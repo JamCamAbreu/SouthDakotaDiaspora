@@ -24,6 +24,7 @@ namespace Site
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/themes/custom/Diaspora.css",
                       "~/Content/site.css"));
 
             // Create Bundle for JQueryUI

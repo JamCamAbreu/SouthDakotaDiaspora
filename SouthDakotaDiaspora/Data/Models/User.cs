@@ -26,6 +26,6 @@ namespace Data.Models
         public List<Comment> Comments { get; set; }
         [Required]
         [Display(Name = "Role")]
-        public UserRoleType UserRole { get; set; }
+        public UserRoleType UserRole { get; set; } = UserRoleType.Contributor;
     }
 }

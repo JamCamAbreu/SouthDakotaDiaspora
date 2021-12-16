@@ -48,7 +48,16 @@ namespace Site.Controllers
         {
             if (ModelState.IsValid)
             {
+                User existing = this.db.GetAll().Where(u => u.Username == user.Username).FirstOrDefault();
+                if (existing != null)
+                {
+                    ModelState.AddModelError("Username", "The chosen username is already taken. Please choose another.");
+                    return View(user);
+                }
+
                 db.Add(user);
+                Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Your account was successfully created: {user.LastName}, {user.FirstName} ({user.Username})");
+                Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Please log in:");
                 return RedirectToAction("Login");
             }
             return View();
@@ -69,9 +78,7 @@ namespace Site.Controllers
                 User existing = db.Get(user.Username, user.Password);
                 if (existing != null)
                 {
-                    Session["UserID"] = existing.Id.ToString();
-                    Session["UserName"] = existing.Username;
-                    Session["Role"] = existing.UserRole.ToString();
+                    Helpers.GlobalMethods.UpdateSession(this.Session, existing);
                     return RedirectToAction("Index");
                 }
                 else
@@ -86,18 +93,7 @@ namespace Site.Controllers
         [HttpGet]
         public ActionResult Logout()
         {
-            if (Session["UserID"] != null)
-            {
-                Session.Remove("UserID");
-            }
-            if (Session["UserName"] != null)
-            {
-                Session.Remove("UserName");
-            }
-            if (Session["Role"] != null)
-            {
-                Session.Remove("Role");
-            }
+            Site.Helpers.GlobalMethods.ClearSession(this.Session);
             return RedirectToAction("LogoutSuccess");
         }
 
