@@ -13,11 +13,11 @@ namespace Data.Models
         [MaxLength(128)]
         public string Title { get; set; }
         public Activity ActivityId { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Time")]
         public DateTime StartTime { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
         [Display(Name = "End Time")]
         public DateTime EndTime { get; set; }

@@ -17,6 +17,12 @@ namespace Data.Services
 
         public void Add(User user)
         {
+            // First user is always admin:
+            if (database.Users.Count() == 0)
+            {
+                user.UserRole = UserRoleType.Admin;
+            }
+
             database.Users.Add(user);
             database.SaveChanges();
         }

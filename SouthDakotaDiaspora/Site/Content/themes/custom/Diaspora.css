@@ -1,4 +1,8 @@
 ﻿
+@font-face {
+    font-family: Caroni-Regular;
+    src: url(../../../fonts/Caroni-Regular.otf)
+}
 
 .confirmation-messages {
     text-align: center;
@@ -9,3 +13,79 @@
     border: 2px outset #7cb24166;
 }
 
+
+/* ADD NEW BUTTON */
+.plusbutton {
+    width: 24px;
+    height: 24px;
+    background: url(images/plusbuttontransparent.png);
+    display: inline-block;
+}
+.plusbutton:hover {
+    background: url(images/plusbutton.png);
+}
+
+
+/* TIMELINE (GENERAL) */
+.timeline-add {
+    width: 180px;
+    text-align: center;
+}
+.timeline-table {
+    font-family: 'Caroni-Regular';
+    
+}
+.timeline-table > tbody > tr > td {
+    border-top: none;
+}
+.timeline-table h3 {
+    color: black;
+    font-weight:600;
+}
+.timeline-table td:nth-child(1) {
+    width: 180px;
+}
+
+
+
+/* TIMELINE: PREVIOUS */
+.timeline-prev {
+    font-size: smaller;
+    background-color: #CCCDED;
+    
+}
+.timeline-prev td:nth-child(1) {
+    font-size: smaller;
+    color: #EBE8FF;
+    background-color: #BCBDED;
+}
+.timeline-prev>td {
+    padding: 0px !important;
+}
+
+
+/* TIMELINE: TODAY */
+.timeline-today {
+    font-size: large;
+    background-color: #D9DAFF;
+}
+.timeline-today td:nth-child(1) {
+    font-size: large;
+    color: #EBE8FF;
+    background-color: #BABCFF;
+}
+
+
+/* TIMELINE: FUTURE: */
+.timeline-future {
+    font-size: smaller;
+    background-color: #CBCDFF;
+}
+.timeline-future td:nth-child(1) {
+    font-size: smaller;
+    color: #EBE8FF;
+    background-color: #BABCFF;
+}
+.timeline-future > td {
+    padding: 0px !important;
+}

@@ -41,7 +41,7 @@
 }
 
 <h2>Edit</h2>
-@if (Session["UserID"] == null)
+@if (!Site.Helpers.GlobalMethods.IsLoggedIn(this.Session))
 {
     <p>
         @Html.ActionLink("Please log in to contribute", "Login", "Home")

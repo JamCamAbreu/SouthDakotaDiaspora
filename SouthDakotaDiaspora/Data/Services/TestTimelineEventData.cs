@@ -9,7 +9,7 @@ namespace Data.Services
 {
     public class TestTimelineEventData : ITimelineEventData
     {
-        IEnumerable<TimelineEvent> timelineEvents;
+        List<TimelineEvent> timelineEvents;
         public TestTimelineEventData()
         {
             this.timelineEvents = new List<TimelineEvent>()
@@ -39,9 +39,59 @@ namespace Data.Services
                     EndTime = DateTime.Now.AddHours(43)},
             };
         }
+
+        public void Add(TimelineEvent timelineEvent)
+        {
+            timelineEvent.Id = this.timelineEvents.Max(t => t.Id) + 1;
+            this.timelineEvents.Add(timelineEvent);
+        }
+
+        public void Delete(int id)
+        {
+            TimelineEvent timelineEvent = this.Get(id);
+            if (timelineEvent != null)
+            {
+                this.timelineEvents.Remove(timelineEvent);
+            }
+        }
+
+        public TimelineEvent Get(int id)
+        {
+            return this.timelineEvents.FirstOrDefault(t => t.Id == id);
+        }
+
+        public IEnumerable<TimelineEvent> GetAfterToday()
+        {
+            return this.timelineEvents.Where(t => t.StartTime >= DateTime.Today.AddDays(1));
+        }
+
         public IEnumerable<TimelineEvent> GetAll()
         {
             return timelineEvents;
+        }
+
+        public IEnumerable<TimelineEvent> GetBeforeToday()
+        {
+            return this.timelineEvents.Where(t => t.StartTime < DateTime.Today);
+        }
+
+        public IEnumerable<TimelineEvent> GetToday()
+        {
+            return this.timelineEvents.Where(t => t.StartTime >= DateTime.Today && t.StartTime < DateTime.Today.AddDays(1));
+        }
+
+        public void Update(TimelineEvent timelineEvent)
+        {
+            if (timelineEvent == null) return;
+            TimelineEvent existing = this.Get(timelineEvent.Id);
+            if (existing != null)
+            {
+                existing.Host = timelineEvent.Host;
+                existing.Title = timelineEvent.Title;
+                existing.StartTime = timelineEvent.StartTime;
+                existing.EndTime = timelineEvent.EndTime;
+                existing.ActivityId = timelineEvent.ActivityId;
+            }
         }
     }
 }

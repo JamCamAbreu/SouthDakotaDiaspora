@@ -27,9 +27,9 @@ namespace Site
             #endregion
 
             #region Timeline Data
-            builder.RegisterType<TestTimelineEventData>()
+            builder.RegisterType<SqlTimelineEventData>()
                 .As<ITimelineEventData>()
-                .SingleInstance();
+                .InstancePerRequest();
             #endregion
 
             #region Game Data

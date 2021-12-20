@@ -8,6 +8,11 @@ namespace Site.Helpers
 {
     public static class GlobalMethods
     {
+        public static bool IsLoggedIn(HttpSessionStateBase session)
+        {
+            if (session == null || session["UserID"] == null) return false;
+            return true;
+        }
         public static void UpdateSession(HttpSessionStateBase session, User user)
         {
             if (user == null || session == null)

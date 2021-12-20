@@ -9,6 +9,13 @@ namespace Data.Services
 {
     public interface ITimelineEventData
     {
+        void Add(TimelineEvent timelineEvent);
+        void Delete(int id);
+        void Update(TimelineEvent timelineEvent);
+        TimelineEvent Get(int id);
         IEnumerable<TimelineEvent> GetAll();
+        IEnumerable<TimelineEvent> GetBeforeToday();
+        IEnumerable<TimelineEvent> GetToday();
+        IEnumerable<TimelineEvent> GetAfterToday();
     }
 }

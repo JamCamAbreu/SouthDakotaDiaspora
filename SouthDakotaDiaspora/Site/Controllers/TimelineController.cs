@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using Data.Services;
+using Site.Models.Timeline;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,32 @@ namespace Site.Controllers
             db = database;
         }
 
-        // GET: Timeline
+        [HttpGet]
         public ActionResult Index()
         {
-            var model = db.GetAll();
+            TimelineIndexViewModel model = new TimelineIndexViewModel();
+            model.PastEvents = this.db.GetBeforeToday().ToList();
+            model.TodayEvents = this.db.GetToday().ToList();
+            model.FutureEvents = this.db.GetAfterToday().ToList();
             return View(model);
         }
 
-        public ActionResult Event()
+        [HttpGet]
+        public ActionResult Create()
         {
-            var model = db.GetAll();
-            return View(model);
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(TimelineEvent tevent)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Add(tevent);
+                Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Successfully created event.");
+                return RedirectToAction("Index");
+            }
+            return View();
         }
 
     }
