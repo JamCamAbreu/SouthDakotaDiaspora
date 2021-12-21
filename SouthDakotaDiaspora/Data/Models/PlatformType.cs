@@ -15,7 +15,7 @@ namespace Data.Models
         [Display(Name = "Discord Meeting")]
         DiscordMeeting,
 
-        [Display(Name = "Stream")]
+        [Display(Name = "Streaming")]
         Streaming,
 
         [Display(Name = "Browser Site")]

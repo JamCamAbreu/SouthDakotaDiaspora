@@ -21,9 +21,31 @@ namespace Site.Controllers
         public ActionResult Index()
         {
             TimelineIndexViewModel model = new TimelineIndexViewModel();
-            model.PastEvents = this.db.GetBeforeToday().ToList();
-            model.TodayEvents = this.db.GetToday().ToList();
-            model.FutureEvents = this.db.GetAfterToday().ToList();
+            int MAX_PER_TABLE = 8;
+
+            List<TimelineEvent> pastEvents = this.db.GetBeforeToday().ToList();
+            int i;
+            for (i = 0; i < Math.Min(pastEvents.Count, MAX_PER_TABLE); i++)
+            {
+                TimelineEvent pastEvent = pastEvents[i];
+                model.PastEvents.Add(new TimelineRow(pastEvent));
+            }
+            if (pastEvents.Count > MAX_PER_TABLE) { model.MorePastEvents = true; }
+
+            List<TimelineEvent> todayEvents = this.db.GetToday().ToList();
+            foreach (TimelineEvent todayEvent in todayEvents)
+            {
+                model.TodayEvents.Add(new TimelineRow(todayEvent));
+            }
+
+            List<TimelineEvent> futureEvents = this.db.GetAfterToday().ToList();
+            for (i = 0; i < Math.Min(futureEvents.Count, MAX_PER_TABLE); i++)
+            {
+                TimelineEvent futureEvent = futureEvents[i];
+                model.FutureEvents.Add(new TimelineRow(futureEvent));
+            }
+            if (futureEvents.Count > MAX_PER_TABLE) { model.MoreFutureEvents = true; }
+
             return View(model);
         }
 
@@ -45,5 +67,22 @@ namespace Site.Controllers
             return View();
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, FormCollection form)
+        {
+            var model = db.Get(id);
+            if (model == null)
+            {
+                return View("NotFound");
+            }
+            else
+            {
+                db.Delete(id);
+                return RedirectToAction("Index");
+            }
+
+        }
     }
 }

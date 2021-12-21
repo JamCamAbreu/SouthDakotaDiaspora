@@ -165,6 +165,7 @@
     </Compile>
     <Compile Include="Helpers\GlobalMethods.cs" />
     <Compile Include="Models\Timeline\TimelineIndexViewModel.cs" />
+    <Compile Include="Models\Timeline\TimelineRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -270,6 +271,7 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Timeline\Index.cshtml" />
     <Content Include="Views\Timeline\Create.cshtml" />
+    <Content Include="Views\Timeline\NotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

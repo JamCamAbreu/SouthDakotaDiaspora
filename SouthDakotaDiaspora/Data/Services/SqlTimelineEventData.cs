@@ -36,14 +36,6 @@ namespace Data.Services
             return database.TimelineEvents.Find(id);
         }
 
-        public IEnumerable<TimelineEvent> GetAfterToday()
-        {
-            return from t in database.TimelineEvents
-                   orderby t.StartTime
-                   where t.StartTime > System.Data.Entity.DbFunctions.AddDays(DateTime.Today, 1)
-                   select t;
-        }
-
         public IEnumerable<TimelineEvent> GetAll()
         {
             return from t in database.TimelineEvents
@@ -53,20 +45,21 @@ namespace Data.Services
 
         public IEnumerable<TimelineEvent> GetBeforeToday()
         {
-            return from t in database.TimelineEvents
-                   orderby t.StartTime
-                   where t.StartTime < DateTime.Now
-                   select t;
+            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            return items.Where(tevent => tevent.EndTime < DateTime.Now).OrderBy(tevent => tevent.StartTime);
         }
-
         public IEnumerable<TimelineEvent> GetToday()
         {
-            return from t in database.TimelineEvents
-                   orderby t.StartTime
-                   where t.StartTime >= DateTime.Now && t.StartTime < System.Data.Entity.DbFunctions.AddDays(DateTime.Today, 1)
-                   select t;
+            DateTime endofday = DateTime.Now.Date.AddDays(1);
+            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            return items.Where(tevent => tevent.EndTime >= DateTime.Now && tevent.EndTime < endofday).OrderBy(tevent => tevent.StartTime);
         }
-
+        public IEnumerable<TimelineEvent> GetAfterToday()
+        {
+            DateTime endofday = DateTime.Now.Date.AddDays(1);
+            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            return items.Where(tevent => tevent.StartTime > endofday).OrderBy(tevent => tevent.StartTime);
+        }
         public void Update(TimelineEvent timelineEvent)
         {
             if (timelineEvent == null) return;

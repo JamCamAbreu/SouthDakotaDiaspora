@@ -13,6 +13,15 @@
     border: 2px outset #7cb24166;
 }
 
+.buttonless-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #069;
+    cursor: pointer;
+    display: inline;
+}
+
 
 /* ADD NEW BUTTON */
 .plusbutton {
@@ -47,30 +56,35 @@
 }
 
 
+/* TIMELINE HEADER */
+.timeline-head>td {
+    vertical-align: bottom !important;
+}
+
 
 /* TIMELINE: PREVIOUS */
 .timeline-prev {
-    font-size: smaller;
+    font-size: small;
     background-color: #CCCDED;
-    
 }
 .timeline-prev td:nth-child(1) {
-    font-size: smaller;
+    font-size: small;
     color: #EBE8FF;
     background-color: #BCBDED;
 }
 .timeline-prev>td {
     padding: 0px !important;
+    color: #808080a1;
 }
 
 
 /* TIMELINE: TODAY */
 .timeline-today {
-    font-size: large;
+    font-size: larger;
     background-color: #D9DAFF;
 }
 .timeline-today td:nth-child(1) {
-    font-size: large;
+    font-size: larger;
     color: #EBE8FF;
     background-color: #BABCFF;
 }
@@ -78,11 +92,11 @@
 
 /* TIMELINE: FUTURE: */
 .timeline-future {
-    font-size: smaller;
+    font-size: small;
     background-color: #CBCDFF;
 }
 .timeline-future td:nth-child(1) {
-    font-size: smaller;
+    font-size: small;
     color: #EBE8FF;
     background-color: #BABCFF;
 }

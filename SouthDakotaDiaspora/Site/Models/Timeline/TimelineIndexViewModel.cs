@@ -10,11 +10,23 @@ namespace Site.Models.Timeline
     {
         public TimelineIndexViewModel()
         {
-            Scaffolding = new TimelineEvent();
+            Scaffolding = new TimelineRow();
+
+            PastEvents = new List<TimelineRow>();
+            TodayEvents = new List<TimelineRow>();
+            FutureEvents = new List<TimelineRow>();
+
+            this.MorePastEvents = false;
+            this.MoreFutureEvents = false;
         }
-        public TimelineEvent Scaffolding { get; set; }
-        public List<TimelineEvent> PastEvents { get; set; }
-        public List<TimelineEvent> TodayEvents { get; set; }
-        public List<TimelineEvent> FutureEvents { get; set; }
+        public TimelineRow Scaffolding { get; set; }
+
+        public List<TimelineRow> PastEvents { get; set; }
+        public bool MorePastEvents { get; set; }
+
+        public List<TimelineRow> TodayEvents { get; set; }
+
+        public List<TimelineRow> FutureEvents { get; set; }
+        public bool MoreFutureEvents { get; set; }
     }
 }
