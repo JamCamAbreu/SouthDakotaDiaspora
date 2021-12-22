@@ -71,7 +71,7 @@ namespace Site.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(User user)
+        public ActionResult Login(User user, string ra="", string rc="", int? rid = null)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +79,13 @@ namespace Site.Controllers
                 if (existing != null)
                 {
                     Helpers.GlobalMethods.UpdateSession(this.Session, existing);
+
+                    if (!string.IsNullOrEmpty(ra) && !string.IsNullOrEmpty(rc))
+                    {
+                        if (rid != null) { return RedirectToAction(ra, rc, new { id = (int)rid }); }
+                        else { return RedirectToAction(ra, rc); }
+                    }
+
                     return RedirectToAction("Index");
                 }
                 else

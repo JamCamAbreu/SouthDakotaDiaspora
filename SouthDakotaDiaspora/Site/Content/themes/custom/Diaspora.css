@@ -4,6 +4,13 @@
     src: url(../../../fonts/Caroni-Regular.otf)
 }
 
+.clickable-row:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    filter: brightness(115%);
+    cursor: pointer;
+}
+
+
 .confirmation-messages {
     text-align: center;
     background: #84e020b8;
@@ -22,8 +29,15 @@
     display: inline;
 }
 
+.CaroniFont {
+    font-family: Caroni-Regular;
+}
+
 
 /* ADD NEW BUTTON */
+.plus-link {
+    height: 24px;
+}
 .plusbutton {
     width: 24px;
     height: 24px;
@@ -50,41 +64,47 @@
 .timeline-table h3 {
     color: black;
     font-weight:600;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 .timeline-table td:nth-child(1) {
-    width: 180px;
+    width: 24%;
+    margin-top: 4px;
 }
+
 
 
 /* TIMELINE HEADER */
-.timeline-head>td {
+.timeline-head > td {
     vertical-align: bottom !important;
+    background-color: #bcbded;
+    font-weight: 600;
 }
 
 
 /* TIMELINE: PREVIOUS */
 .timeline-prev {
-    font-size: small;
+    font-size: 18px;
     background-color: #CCCDED;
 }
 .timeline-prev td:nth-child(1) {
-    font-size: small;
+    font-size: 18px;
     color: #EBE8FF;
     background-color: #BCBDED;
 }
 .timeline-prev>td {
     padding: 0px !important;
-    color: #808080a1;
+    color: #808080e0;
 }
 
 
 /* TIMELINE: TODAY */
 .timeline-today {
-    font-size: larger;
+    font-size: 26px;
     background-color: #D9DAFF;
 }
 .timeline-today td:nth-child(1) {
-    font-size: larger;
+    font-size: 26px;
     color: #EBE8FF;
     background-color: #BABCFF;
 }
@@ -92,11 +112,11 @@
 
 /* TIMELINE: FUTURE: */
 .timeline-future {
-    font-size: small;
+    font-size: 18px;
     background-color: #CBCDFF;
 }
 .timeline-future td:nth-child(1) {
-    font-size: small;
+    font-size: 18px;
     color: #EBE8FF;
     background-color: #BABCFF;
 }

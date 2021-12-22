@@ -24,19 +24,13 @@ namespace Site.Controllers
         }
 
         [HttpGet]
-        public ActionResult Details(int id)
-        {
-            var model = db.Get(id);
-            if (model == null)
-            {
-                return View("NotFound");
-            }
-            return View(model);
-        }
-
-        [HttpGet]
         public ActionResult Create()
         {
+            if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
+            {
+                return RedirectToAction("Login", "Home", new { ra = "Create", rc = "Games" });
+            }
+
             return View();
         }
         [HttpPost]
@@ -54,6 +48,11 @@ namespace Site.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
+            if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
+            {
+                return RedirectToAction("Login", "Home", new { ra="Edit", rc="Games", rid=id });
+            }
+
             var model = db.Get(id);
             if (model == null)
             {
@@ -82,7 +81,12 @@ namespace Site.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
-            var model = db.Get(id);
+            if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
+            {
+                return RedirectToAction("Login", "Home", new { ra = "Index", rc = "Games" });
+            }
+
+            Game model = db.Get(id);
             if (model == null)
             {
                 return View("NotFound");
@@ -94,7 +98,14 @@ namespace Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection form)
         {
+            Game model = db.Get(id);
+            if (model == null)
+            {
+                return View("NotFound");
+            }
+
             db.Delete(id);
+            Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Game '{model.Name}' was successfully removed.");
             return RedirectToAction("Index");
         }
     }

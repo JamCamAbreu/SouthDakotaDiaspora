@@ -72,6 +72,11 @@ namespace Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection form)
         {
+            if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
+            {
+                return RedirectToAction("Login", "Home", new { ra = "Index", rc = "Timeline" });
+            }
+
             var model = db.Get(id);
             if (model == null)
             {
@@ -82,7 +87,53 @@ namespace Site.Controllers
                 db.Delete(id);
                 return RedirectToAction("Index");
             }
-
         }
+
+        [HttpGet]
+        public ActionResult Details(int id)
+        {
+            var model = db.Get(id);
+            if (model == null)
+            {
+                return View("NotFound");
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
+            {
+                return RedirectToAction("Login", "Home", new { ra = "Edit", rc = "Timeline", rid = id });
+            }
+
+            var model = db.Get(id);
+            if (model == null)
+            {
+                return View("NotFound");
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(TimelineEvent tevent)
+        {
+            var existing = db.Get(tevent.Id);
+            if (existing == null)
+            {
+                return View("NotFound");
+            }
+
+            if (ModelState.IsValid)
+            {
+                db.Update(tevent);
+                Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"'{tevent.Title}' updated successfully.");
+                return RedirectToAction("Index");
+            }
+            return View(tevent);
+        }
+
     }
 }

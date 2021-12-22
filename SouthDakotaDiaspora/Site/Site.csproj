@@ -251,13 +251,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Games\Index.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Games\Create.cshtml" />
-    <Content Include="Views\Games\Details.cshtml" />
     <Content Include="Views\Games\NotFound.cshtml" />
     <Content Include="Views\Games\Edit.cshtml" />
     <Content Include="Views\Games\Delete.cshtml" />
@@ -272,6 +270,8 @@
     <Content Include="Views\Timeline\Index.cshtml" />
     <Content Include="Views\Timeline\Create.cshtml" />
     <Content Include="Views\Timeline\NotFound.cshtml" />
+    <Content Include="Views\Timeline\Details.cshtml" />
+    <Content Include="Views\Timeline\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

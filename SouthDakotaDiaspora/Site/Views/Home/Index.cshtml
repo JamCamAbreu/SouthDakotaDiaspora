@@ -3,35 +3,18 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h2>South Dakota Diaspora</h2>
-</div>
-<div>
+<h1>South Dakota Diaspora</h1>
+<div style="text-align: center">
 
     @if (Session["UserName"] != null)
     {
-    <div>
-        <text>
-            <h2>Welcome, </h2>
-            <h4>@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName) (@Html.DisplayFor(model => model.Username))</h4>
-        </text>
-    </div>
+        <h2 style="display: inline">Welcome, </h2><h4 style="display: inline">@Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName) (@Html.DisplayFor(model => model.Username))</h4>
     }
-    <br />
     <div>
         @if (Session["UserName"] == null)
         {
-            <button>
-                @Html.ActionLink("Create Account", "Create", "Home")
-            </button>
+            <h3>Welcome!</h3>
+            <p>Log in or create a new account to start contributing!</p>
         }
     </div>
-
-    <div>
-        <button>
-            @(Session["UserName"] == null ? @Html.ActionLink("Log In", "Login", "Home") : @Html.ActionLink("Log Out", "Logout", "Home"))
-        </button>
-    </div>
-
-
 </div>

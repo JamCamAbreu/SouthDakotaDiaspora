@@ -4,7 +4,10 @@
     ViewBag.Title = "Timeline";
 }
 
-
+<h2>Timeline</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
 <table class="timeline-table table" style="text-align: center;">
 
     @* HEADERS *@
@@ -14,7 +17,7 @@
     <tr class="timeline-prev"><td><h3>Previous</h3></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.PastEvents)
     {
-        <tr class="timeline-prev">
+        <tr class="timeline-prev clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.Id})'">
             <td>
                 @Html.DisplayFor(modelItem => item.StartTimeDisplay)
             </td>
@@ -28,7 +31,6 @@
                 @Html.DisplayFor(modelItem => item.Attending)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
             </td>
         </tr>
     }
@@ -37,7 +39,7 @@
     <tr class="timeline-today"><td><h3>Today</h3></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.TodayEvents)
     {
-        <tr class="timeline-today">
+        <tr class="timeline-today clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.Id})'">
             <td>
                 @Html.DisplayFor(modelItem => item.StartTimeDisplay)
             </td>
@@ -51,8 +53,6 @@
                 @Html.DisplayFor(modelItem => item.Attending)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @using (Html.BeginForm("Delete", "Timeline", new { id = item.Id }, FormMethod.Post, new { @class = "buttonless-button" }))
                 {
                     @Html.AntiForgeryToken()
@@ -66,7 +66,7 @@
     <tr class="timeline-future"><td><h3>Later</h3></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.FutureEvents)
     {
-        <tr class="timeline-future">
+        <tr class="timeline-future clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.Id})'">
             <td>
                 @Html.DisplayFor(modelItem => item.StartTimeDisplay)
             </td>
@@ -80,8 +80,6 @@
                 @Html.DisplayFor(modelItem => item.Attending)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @using (Html.BeginForm("Delete", "Timeline", new { id = item.Id }, FormMethod.Post, new { @class = "buttonless-button" }))
                 {
                     @Html.AntiForgeryToken()
