@@ -43,6 +43,17 @@ namespace Data.Services
                    select t;
         }
 
+        public IEnumerable<TimelineEvent> GetPendingNotifySoonEvents()
+        {
+            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            return items.Where(tevent => tevent.StartTime <= DateTime.Now.AddHours(1) && tevent.EndTime > DateTime.Now && tevent.SentNotificationSoon == false);
+        }
+        public IEnumerable<TimelineEvent> GetPendingNotifyStartingEvents()
+        {
+            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            return items.Where(tevent => tevent.StartTime <= DateTime.Now && tevent.EndTime > DateTime.Now && tevent.SentNotificationStarting == false);
+        }
+
         public IEnumerable<TimelineEvent> GetBeforeToday()
         {
             List<TimelineEvent> items = database.TimelineEvents.ToList();

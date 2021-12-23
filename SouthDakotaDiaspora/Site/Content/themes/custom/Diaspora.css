@@ -33,6 +33,10 @@
     font-family: Caroni-Regular;
 }
 
+.header-selected {
+    filter: brightness(25%);
+}
+
 
 /* ADD NEW BUTTON */
 .plus-link {

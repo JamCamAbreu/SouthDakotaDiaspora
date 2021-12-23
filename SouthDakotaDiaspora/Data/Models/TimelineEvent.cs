@@ -27,5 +27,7 @@ namespace Data.Models
         [Display(Name = "Users Maybe")]
         public List<User> UsersMaybe { get; set; }
         public List<Comment> Comments { get; set; }
+        public bool SentNotificationStarting { get; set; }
+        public bool SentNotificationSoon { get; set; }
     }
 }

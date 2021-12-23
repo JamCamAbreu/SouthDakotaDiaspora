@@ -17,5 +17,7 @@ namespace Data.Services
         IEnumerable<TimelineEvent> GetBeforeToday();
         IEnumerable<TimelineEvent> GetToday();
         IEnumerable<TimelineEvent> GetAfterToday();
+        IEnumerable<TimelineEvent> GetPendingNotifySoonEvents();
+        IEnumerable<TimelineEvent> GetPendingNotifyStartingEvents();
     }
 }

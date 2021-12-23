@@ -75,6 +75,16 @@ namespace Data.Services
             return this.timelineEvents.Where(t => t.StartTime < DateTime.Today);
         }
 
+        public IEnumerable<TimelineEvent> GetPendingNotifySoonEvents()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<TimelineEvent> GetPendingNotifyStartingEvents()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<TimelineEvent> GetToday()
         {
             return this.timelineEvents.Where(t => t.StartTime >= DateTime.Today && t.StartTime < DateTime.Today.AddDays(1));

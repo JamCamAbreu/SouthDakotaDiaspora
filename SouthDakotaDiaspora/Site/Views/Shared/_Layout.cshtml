@@ -17,42 +17,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @if (!Site.Helpers.GlobalMethods.IsLoggedIn(this.Session))
-                {
-                    <div>
-                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                        @Html.ActionLink("Create Account", "Create", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                        @Html.ActionLink("Log In", "Login", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                }
-                else
-                {
-                    <div>
-                        @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                        @Html.ActionLink(Session["Username"].ToString(), "Details", "Users", new { area = "", id = Session["UserID"].ToString() }, new { @class = "navbar-brand" })
+                <div>
+                    <a href="@Url.Action("Index", "Home", new { area = ""})" class="navbar-brand @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "header-selected" : "")">Home</a>
+                    @if (!Site.Helpers.GlobalMethods.IsLoggedIn(this.Session))
+                    {
+                        <a href="@Url.Action("Create", "Home", new { area = "" })" class="navbar-brand @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Create" ? "header-selected" : "")">Create Account</a>
+                        <a href="@Url.Action("Login", "Home", new { area = "" })" class="navbar-brand @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Login" ? "header-selected" : "")">Log In</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Details", "Users", new { area = "", id = Session["UserID"].ToString() })" class="navbar-brand @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Login" ? "header-selected" : "")">@Session["Username"].ToString()</a>
                         @Html.ActionLink("Log Out", "Logout", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                    </div>
-                }
+                    }
+                </div>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Timeline")
-                    {
-                        <li style="width: 26px"><a href="@Url.Action("create")"><span class="plusbutton" /></a></li>
-                    }
-                    <li>@Html.ActionLink("Timeline ⌚", "Index", "Timeline")</li>
 
-                    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Users")
-                    {
-                        <li style="width: 26px"><a href="@Url.Action("create")"><span class="plusbutton" /></a></li>
-                    }
-                    <li>@Html.ActionLink("Users 🧙‍", "Index", "Users")</li>
-
-                    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Games")
-                    {
-                        <li style="width: 26px"><a href="@Url.Action("create")"><span class="plusbutton" /></a></li>
-                    }
-                    <li>@Html.ActionLink("Games 🎲", "Index", "Games")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Timeline" ? "class = header-selected" : "")>@Html.ActionLink("Timeline ⌚", "Index", "Timeline")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Users" ? "class = header-selected" : "")>@Html.ActionLink("Users 🧙‍", "Index", "Users")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Games" ? "class = header-selected" : "") >@Html.ActionLink("Games 🎲", "Index", "Games")</li>
                     <li>@Html.ActionLink("Shows/Videos 📺", "Index", "Shows")</li>
                     <li>@Html.ActionLink("Books/Articles 📚", "Index", "Books")</li>
                     <li>@Html.ActionLink("Projects 🧪", "Index", "Projects")</li>
