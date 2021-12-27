@@ -25,38 +25,38 @@
             @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserRole)
+            @Html.DisplayNameFor(model => model.TimeZonePreference)
         </th>
         <th></th>
     </tr>
 
     @foreach (Data.Models.User item in Model)
     {
-        <tr class="clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.Id})'" style="@(Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString() ? "font-weight: 600" : "")">
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserRole)
-            </td>
-            <td>
-                @if ((Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString() && // You are an admin AND
-                        item.UserRole != Data.Models.UserRoleType.Admin) || // This person is a contributor
+<tr class="clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.Id})'" style="@(Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString() ? "font-weight: 600" : "")">
+    <td>
+        @Html.DisplayFor(modelItem => item.Username)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.LastName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TimeZonePreference, item.TimeZonePreference.GetType().Name)
+    </td>
+    <td>
+        @if ((Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString() && // You are an admin AND
+                item.UserRole != Data.Models.UserRoleType.Admin) || // This person is a contributor
 
-                    // OR
+            // OR
 
-                    (Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString())) // You are yourself
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                }
-            </td>
-        </tr>
+            (Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString())) // You are yourself
+        {
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        }
+    </td>
+</tr>
     }
 
 </table>

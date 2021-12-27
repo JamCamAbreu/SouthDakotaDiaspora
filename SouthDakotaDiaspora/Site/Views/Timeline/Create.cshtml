@@ -4,32 +4,6 @@
     ViewBag.Title = "Create";
 }
 
-@*DATE AND TIME PICKER*@
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryui")
-    @Styles.Render("~/Content/cssjqryUi")
-    @Scripts.Render("~/bundles/jquerytimepicker")
-    @Styles.Render("~/Content/jquerytimepicker")
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('input[type=datetime]').datetimepicker({
-                numberOfMonths: 3,
-                minDate: -30,
-                maxDate: 30,
-                timeFormat: 'hh:mm tt z',
-                controlType: 'select',
-                oneLine: true,
-                stepMinute: 5,
-                timezoneList: [
-                    { value: -480, label: 'Pacific' },
-                    { value: -420, label: 'Mountain' },
-                    { value: -360, label: 'Central' },
-                    { value: -300, label: 'Eastern' }
-                ]
-            });
-        });
-    </script>
-}
 
 <h2>Create</h2>
 
@@ -52,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control", @id = "start-time-picker" } })
                 @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control", @id = "end-time-picker" } })
                 @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -76,3 +50,38 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@*DATE AND TIME PICKER*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/bundles/jquerytimepicker")
+    @Styles.Render("~/Content/jquerytimepicker")
+<script type="text/javascript">
+
+    var startDateTextBox = $('#start-time-picker');
+    var endDateTextBox = $('#end-time-picker');
+
+        $(document).ready(function () {
+            $('input[type=datetime]').datetimepicker({
+                numberOfMonths: 3,
+                minDate: -30,
+                maxDate: 30,
+                timeFormat: 'hh:mm tt z',
+                controlType: 'select',
+                oneLine: true,
+                stepMinute: 5,
+                timezoneList: [
+                    { value: -480, label: 'Pacific' },
+                    { value: -420, label: 'Mountain' },
+                    { value: -360, label: 'Central' },
+                    { value: -300, label: 'Eastern' }
+                ]
+            }).datetimepicker("setDate", new Date());
+        });
+
+@*var timezonecode = @(Session["TimeZoneCode"] != null ? Session["TimeZoneCode"] : "-420");
+timezoneList.value = timezonecode;*@
+
+</script>
+}

@@ -63,6 +63,7 @@ namespace Data.Services
                 existing.FirstName = user.FirstName;
                 existing.LastName = user.LastName;
                 existing.UserRole = user.UserRole;
+                existing.TimeZonePreference = user.TimeZonePreference;
                 database.SaveChanges();
             }
         }

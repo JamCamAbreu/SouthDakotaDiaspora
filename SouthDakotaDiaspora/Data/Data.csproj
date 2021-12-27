@@ -108,6 +108,7 @@
     <Compile Include="Models\TimelineEvent.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRoleType.cs" />
+    <Compile Include="Models\UserTimeZoneType.cs" />
     <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DiscordNotifier.cs" />
@@ -130,6 +131,9 @@
     <EmbeddedResource Include="Migrations\202112162222318_InitialCreate.resx">
       <DependentUpon>202112162222318_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

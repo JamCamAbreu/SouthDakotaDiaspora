@@ -5,6 +5,7 @@
 }
 
 <h2>Timeline</h2>
+<h6 style="text-align: center;"><i>(Showing in @Model.TimeZoneName)</i></h6>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -41,6 +42,17 @@
     {
         <tr class="timeline-today clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.Id})'">
             <td>
+                @*@if (Session["TimeZoneInfo"] == null)
+        {
+            @Html.DisplayFor(modelItem => item.StartTimeDisplay)
+        }
+        else
+        {
+            DateTime localizedTime = TimeZoneInfo.ConvertTime(item.StartTime, Session["TimeZoneInfo"] as TimeZoneInfo);
+            @Html.DisplayFor(modelItem => item.StartTimeDisplay)
+        }*@
+
+
                 @Html.DisplayFor(modelItem => item.StartTimeDisplay)
             </td>
             <td>

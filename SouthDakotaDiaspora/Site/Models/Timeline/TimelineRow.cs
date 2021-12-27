@@ -10,6 +10,7 @@ namespace Site.Models.Timeline
     public class TimelineRow
     {
         const string TIME_FORMAT = "n2";
+        public DateTime StartTime { get; set; }
         public string StartTimeDisplay { get; set; }
         public string Duration { get; set; }
         public string Platform { get; set; }
@@ -17,11 +18,17 @@ namespace Site.Models.Timeline
         public string Attending { get; set; }
         public int Id { get; set; }
         public TimelineRow () { }
-        public TimelineRow(TimelineEvent tevent)
+        public TimelineRow(TimelineEvent tevent, TimeZoneInfo localtimezone)
         {
             this.Id = tevent.Id;
-            this.StartTimeDisplay = this.CleanStartTime(tevent.StartTime, tevent.EndTime);
+
+            DateTime localizedStartTime = TimeZoneInfo.ConvertTime(tevent.StartTime, localtimezone);
+            DateTime localizedEndTime = TimeZoneInfo.ConvertTime(tevent.EndTime, localtimezone);
+            this.StartTime = localizedStartTime;
+            this.StartTimeDisplay = this.CleanStartTime(localizedStartTime, localizedEndTime);
+            
             this.Duration = this.CleanDuration(tevent.StartTime, tevent.EndTime);
+
             this.Platform = tevent.Title; // Todo
             this.ActivityDisplay = tevent.Title; // Todo
 

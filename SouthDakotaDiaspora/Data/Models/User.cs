@@ -27,5 +27,7 @@ namespace Data.Models
         [Required]
         [Display(Name = "Role")]
         public UserRoleType UserRole { get; set; } = UserRoleType.Contributor;
+        [Display(Name = "Time Zone Preference")]
+        public UserTimeZoneType TimeZonePreference { get; set; }
     }
 }

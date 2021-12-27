@@ -39,7 +39,7 @@ namespace Data.Services
             };
             random = new Random();
 
-            this.client = new DiscordWebhookClient("https://discord.com/api/webhooks/923641775627858020/SZdlb-4qURdI9cmeULArEmvaW_xy-wYS_mIQyNoKyZqVEeoMJCOWRoq5JUmx9VYKt5gO");
+            //this.client = new DiscordWebhookClient("https://discord.com/api/webhooks/923641775627858020/SZdlb-4qURdI9cmeULArEmvaW_xy-wYS_mIQyNoKyZqVEeoMJCOWRoq5JUmx9VYKt5gO");
         }
 
         ~DiscordNotifier()

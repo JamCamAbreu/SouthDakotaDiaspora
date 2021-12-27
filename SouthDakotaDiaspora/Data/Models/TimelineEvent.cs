@@ -14,11 +14,11 @@ namespace Data.Models
         public string Title { get; set; }
         public Activity ActivityId { get; set; }
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Time")]
         public DateTime StartTime { get; set; }
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
         [Display(Name = "End Time")]
         public DateTime EndTime { get; set; }
         public User Host { get; set; }

@@ -82,6 +82,7 @@ namespace Data.Services
                 existing.StartTime = timelineEvent.StartTime;
                 existing.EndTime = timelineEvent.EndTime;
                 existing.ActivityId = timelineEvent.ActivityId;
+                database.SaveChanges();
             }
         }
     }

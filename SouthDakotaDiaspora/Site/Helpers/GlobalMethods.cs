@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Site.Helpers
 {
@@ -32,6 +33,47 @@ namespace Site.Helpers
             {
                 session["Role"] = user.UserRole.ToString();
             }
+
+            TimeZoneInfo tzi = TimeZoneInfo.Local;
+            string timezonecode = "-420"; // mountain
+            switch (user.TimeZonePreference)
+            {
+                case UserTimeZoneType.PacificStandardTime:
+                    tzi = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+                    timezonecode = "-480";
+                    break;
+
+                case UserTimeZoneType.MountainStandardTime:
+                    tzi = TimeZoneInfo.FindSystemTimeZoneById("Mountain Standard Time");
+                    timezonecode = "-420";
+                    break;
+
+                case UserTimeZoneType.CentralStandardTime:
+                    tzi = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+                    timezonecode = "-360";
+                    break;
+
+                case UserTimeZoneType.EasternStandardTime:
+                    tzi = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    timezonecode = "-300";
+                    break;
+            }
+            session["TimeZoneInfo"] = tzi;
+            session["TimeZoneCode"] = timezonecode;
+        }
+
+        public static bool IsOnMyUserDetailsPage(HttpSessionStateBase session, ViewContext context)
+        {
+            if(Site.Helpers.GlobalMethods.IsLoggedIn(session) &&
+                !string.IsNullOrEmpty(session["UserID"].ToString()) &&
+                context.RouteData.Values["controller"]?.ToString() == "Users" &&
+                context.RouteData.Values["id"]?.ToString() == session["UserID"].ToString())
+            {
+                return true;         
+            }
+
+            return false;
+
         }
         public static void ClearSession(HttpSessionStateBase session)
         {
@@ -47,6 +89,14 @@ namespace Site.Helpers
             if (session["Role"] != null)
             {
                 session.Remove("Role");
+            }
+            if (session["TimeZoneInfo"] != null)
+            {
+                session.Remove("TimeZoneInfo");
+            }
+            if (session["TimeZoneCode"] != null)
+            {
+                session.Remove("TimeZoneCode");
             }
         }
         public static void AddConfirmationMessage(HttpSessionStateBase session, string message)

@@ -20,6 +20,7 @@ namespace Site.Models.Timeline
             this.MoreFutureEvents = false;
         }
         public TimelineRow Scaffolding { get; set; }
+        public string TimeZoneName { get; set; }
 
         public List<TimelineRow> PastEvents { get; set; }
         public bool MorePastEvents { get; set; }
