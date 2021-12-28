@@ -17,25 +17,23 @@ namespace Data.Services
 
         public void Add(Game game)
         {
-            database.Games.Add(game);
+            database.Activities.Add(game);
             database.SaveChanges();
         }
 
         public Game Get(int id)
         {
-            return database.Games.FirstOrDefault(g => g.Id == id);
+            return database.Games.FirstOrDefault(g => g.ActivityId == id);
         }
 
         public IEnumerable<Game> GetAll()
         {
-            return from g in database.Games
-                   orderby g.Name
-                   select g;
+            return database.Games.OrderBy(g => g.Name);
         }
 
         public void Update(Game game)
         {
-            Game existing = database.Games.Find(game.Id);
+            Game existing = database.Games.Where(g => g.ActivityId == game.ActivityId).FirstOrDefault();
             if (existing != null)
             {
                 existing.Name = game.Name;
@@ -48,10 +46,10 @@ namespace Data.Services
 
         public void Delete(int id)
         {
-            Game game = database.Games.Find(id);
+            Game game = database.Games.Where(g => g.ActivityId == id).FirstOrDefault();
             if (game != null)
             {
-                database.Games.Remove(game);
+                database.Activities.Remove(game);
                 database.SaveChanges();
             }
         }

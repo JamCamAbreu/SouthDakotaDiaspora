@@ -12,7 +12,7 @@ namespace Data.Services
         User Get(string username, string password);
         User Get(int id);
         void Add(User user);
-        void Update(User user);
+        void Update(User user, bool updatepassword = false);
         void Delete(int id);
     }
 }

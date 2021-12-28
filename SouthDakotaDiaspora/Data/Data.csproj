@@ -94,9 +94,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202112162222318_InitialCreate.cs" />
-    <Compile Include="Migrations\202112162222318_InitialCreate.designer.cs">
-      <DependentUpon>202112162222318_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202112272247549_Initial.cs" />
+    <Compile Include="Migrations\202112272247549_Initial.designer.cs">
+      <DependentUpon>202112272247549_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -112,9 +112,11 @@
     <Compile Include="Models\Video.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DiscordNotifier.cs" />
+    <Compile Include="Services\IActivityData.cs" />
     <Compile Include="Services\IGameData.cs" />
     <Compile Include="Services\ITimelineEventData.cs" />
     <Compile Include="Services\SouthDakotaDiasporaDbContext.cs" />
+    <Compile Include="Services\SqlActivityData.cs" />
     <Compile Include="Services\SqlGameData.cs" />
     <Compile Include="Services\SqlTimelineEventData.cs" />
     <Compile Include="Services\SqlUserData.cs" />
@@ -128,12 +130,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112162222318_InitialCreate.resx">
-      <DependentUpon>202112162222318_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Helpers\" />
+    <EmbeddedResource Include="Migrations\202112272247549_Initial.resx">
+      <DependentUpon>202112272247549_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

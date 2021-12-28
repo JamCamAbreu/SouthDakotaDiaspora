@@ -52,10 +52,10 @@
     </dl>
 </div>
 <p>
-    @if (Session["UserID"] != null && Model.Id.ToString() == Session["UserID"].ToString() ||
+    @if (Session["UserID"] != null && Model.UserId.ToString() == Session["UserID"].ToString() ||
     (Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString() && Model.UserRole == Data.Models.UserRoleType.Contributor))
     {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+        @Html.ActionLink("Edit", "Edit", new { id = Model.UserId })
     }
     @Html.ActionLink("Back to List", "Index")
 </p>

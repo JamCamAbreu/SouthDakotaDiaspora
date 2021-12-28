@@ -38,6 +38,10 @@ namespace Site
             builder.RegisterType<DiscordNotifier>()
                 .As<DiscordNotifier>()
                 .SingleInstance();
+
+            builder.RegisterType<SqlActivityData>()
+                .As<IActivityData>()
+                .InstancePerLifetimeScope();
             #endregion
 
             #region Game Data

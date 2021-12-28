@@ -12,7 +12,8 @@ namespace Data.Models
         public int Id { get; set; }
         [MaxLength(128)]
         public string Title { get; set; }
-        public Activity ActivityId { get; set; }
+        public int ActivityId { get; set; }
+        public Activity Activity { get; set; }
         [DataType(DataType.DateTime)]
         //[DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Time")]

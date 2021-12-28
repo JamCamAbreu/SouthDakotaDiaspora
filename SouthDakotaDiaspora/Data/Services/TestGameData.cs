@@ -14,9 +14,9 @@ namespace Data.Services
         {
             this.games = new List<Game>()
             {
-                new Game() { Id = 1, Name = "Valheim", Platform = PlatformType.Steam, ReleaseDate = DateTime.Parse("12/14/2021 10:32 -0700")},
-                new Game() { Id = 2, Name = "Mario Kart 8", Platform = PlatformType.NintendoSwitch, ReleaseDate = DateTime.Parse("10/16/2020")},
-                new Game() { Id = 3, Name = "Troyes", Platform = PlatformType.BrowserSite, ReleaseDate = DateTime.Parse("01/01/2016")},
+                new Game() { ActivityId = 1, Name = "Valheim", Platform = PlatformType.Steam, ReleaseDate = DateTime.Parse("12/14/2021 10:32 -0700")},
+                new Game() { ActivityId = 2, Name = "Mario Kart 8", Platform = PlatformType.NintendoSwitch, ReleaseDate = DateTime.Parse("10/16/2020")},
+                new Game() { ActivityId = 3, Name = "Troyes", Platform = PlatformType.BrowserSite, ReleaseDate = DateTime.Parse("01/01/2016")},
             };
         }
         public IEnumerable<Game> GetAll()
@@ -26,12 +26,12 @@ namespace Data.Services
 
         public Game Get(int id)
         {
-            return games.FirstOrDefault(g => g.Id == id);
+            return games.FirstOrDefault(g => g.ActivityId == id);
         }
 
         public void Add(Game game)
         {
-            game.Id = this.games.Max(g => g.Id) + 1;
+            game.ActivityId = this.games.Max(g => g.ActivityId) + 1;
             this.games.Add(game);
         }
 
@@ -45,7 +45,7 @@ namespace Data.Services
         }
         public void Update(Game game)
         {
-            Game existing = this.Get(game.Id);
+            Game existing = this.Get(game.ActivityId);
             if (existing != null)
             {
                 existing.Name = game.Name;

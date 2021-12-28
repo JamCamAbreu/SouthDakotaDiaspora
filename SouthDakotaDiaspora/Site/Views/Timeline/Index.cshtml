@@ -12,54 +12,63 @@
 <table class="timeline-table table" style="text-align: center;">
 
     @* HEADERS *@
-    <tr class="timeline-head"><td><h3></h3></td><td>Duration</td><td>Activity</td><td>Attending</td><td></td></tr>
+    <tr class="timeline-head"><td><h3></h3></td><td>Title</td><td>Activity</td><td>Duration</td><td>Platform</td><td>Attending</td><td></td></tr>
 
     <!-- Past Events -->
-    <tr class="timeline-prev"><td><h3>Previous</h3></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-prev"><td><h3 class="timeline-category-small">@("<--") Previous</h3></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.PastEvents)
     {
-        <tr class="timeline-prev clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.Id})'">
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTimeDisplay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Duration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Platform)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Attending)
-            </td>
-            <td>
-            </td>
-        </tr>
+<tr class="timeline-prev clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.Id})'">
+    <td>
+        @Html.DisplayFor(modelItem => item.StartTimeDisplay)
+    </td>
+    <td title="@Html.DisplayFor(modelItem => item.Title)">
+        @Html.DisplayFor(modelItem => item.TitleAbbreviated)
+    </td>
+    <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
+        @Html.DisplayFor(modelItem => item.ActivityNameAbbreviated)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Duration)
+    </td>
+    <td title="@Html.DisplayFor(modelItem => item.Platform)">
+        @Html.DisplayFor(modelItem => item.PlatformAbbreviation)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Attending)
+    </td>
+    <td>
+        @if (Site.Helpers.GlobalMethods.IsAdmin(this.Session))
+        {
+            using (Html.BeginForm("Delete", "Timeline", new { id = item.Id }, FormMethod.Post, new { @class = "buttonless-button" }))
+            {
+                @Html.AntiForgeryToken()
+                <input class="timeline-prev buttonless-button" type="submit" value="Delete" />
+            }
+        }
+    </td>
+</tr>
     }
 
     <!-- Today Events -->
-    <tr class="timeline-today"><td><h3>Today</h3></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-today"><td><span class="timeline-category-large">~ Now/Soon ~</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.TodayEvents)
     {
         <tr class="timeline-today clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.Id})'">
             <td>
-                @*@if (Session["TimeZoneInfo"] == null)
-        {
-            @Html.DisplayFor(modelItem => item.StartTimeDisplay)
-        }
-        else
-        {
-            DateTime localizedTime = TimeZoneInfo.ConvertTime(item.StartTime, Session["TimeZoneInfo"] as TimeZoneInfo);
-            @Html.DisplayFor(modelItem => item.StartTimeDisplay)
-        }*@
-
-
                 @Html.DisplayFor(modelItem => item.StartTimeDisplay)
+            </td>
+            <td title="@Html.DisplayFor(modelItem => item.Title)">
+                @Html.DisplayFor(modelItem => item.TitleAbbreviated)
+            </td>
+            <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
+                @Html.DisplayFor(modelItem => item.ActivityNameAbbreviated)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Platform)
+            <td title="@Html.DisplayFor(modelItem => item.Platform)">
+                @Html.DisplayFor(modelItem => item.PlatformAbbreviation)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Attending)
@@ -75,18 +84,24 @@
     }
 
     <!-- Future Events -->
-    <tr class="timeline-future"><td><h3>Later</h3></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-future"><td><h3 class="timeline-category-small">Later --></h3></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.FutureEvents)
     {
         <tr class="timeline-future clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.Id})'">
             <td>
                 @Html.DisplayFor(modelItem => item.StartTimeDisplay)
             </td>
+            <td title="@Html.DisplayFor(modelItem => item.Title)">
+                @Html.DisplayFor(modelItem => item.TitleAbbreviated)
+            </td>
+            <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
+                @Html.DisplayFor(modelItem => item.ActivityNameAbbreviated)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Duration)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Platform)
+            <td title="@Html.DisplayFor(modelItem => item.Platform)">
+                @Html.DisplayFor(modelItem => item.PlatformAbbreviation)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Attending)

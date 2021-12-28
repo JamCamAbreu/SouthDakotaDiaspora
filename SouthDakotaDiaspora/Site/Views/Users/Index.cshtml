@@ -32,7 +32,7 @@
 
     @foreach (Data.Models.User item in Model)
     {
-<tr class="clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.Id})'" style="@(Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString() ? "font-weight: 600" : "")">
+<tr class="clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.UserId})'" style="@(Session["UserID"] != null && item.UserId.ToString() == Session["UserID"].ToString() ? "font-weight: 600" : "")">
     <td>
         @Html.DisplayFor(modelItem => item.Username)
     </td>
@@ -51,9 +51,9 @@
 
             // OR
 
-            (Session["UserID"] != null && item.Id.ToString() == Session["UserID"].ToString())) // You are yourself
+            (Session["UserID"] != null && item.UserId.ToString() == Session["UserID"].ToString())) // You are yourself
         {
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = item.UserId })
         }
     </td>
 </tr>

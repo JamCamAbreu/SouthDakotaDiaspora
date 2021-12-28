@@ -8,6 +8,5 @@ namespace Data.Models
 {
     public class Video : Activity
     {
-        public DateTime ReleaseDate { get; set; }
     }
 }

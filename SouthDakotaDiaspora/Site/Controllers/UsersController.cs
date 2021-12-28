@@ -105,22 +105,27 @@ namespace Site.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(User user)
+        public ActionResult Edit(User user, FormCollection form)
         {
-            User existing = db.Get(user.Id);
+            User existing = db.Get(user.UserId);
             if (existing == null)
             {
                 return RedirectToAction("NotFound");
             }
             else
             {
+                if (!string.IsNullOrEmpty(form["UpdatePassword"]) && string.IsNullOrEmpty(user.Password))
+                {
+                    ModelState.AddModelError("Password", "Your password may not be empty.");
+                }
                 if (ModelState.IsValid)
                 {
                     if (Session["UserName"] != null && Session["UserName"].ToString() == existing.Username)
                     {
                         Helpers.GlobalMethods.UpdateSession(this.Session, user);
                     }
-                    db.Update(user);
+                    bool updatepassword = !string.IsNullOrEmpty(form["UpdatePassword"]);
+                    db.Update(user, updatepassword);
 
                     Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Successfully updated user: {user.LastName}, {user.FirstName} ({user.Username})");
                     return RedirectToAction("Index");

@@ -25,9 +25,9 @@ namespace Site.Helpers
             {
                 session["UserName"] = user.Username;
             }
-            if (session["UserID"] == null || session["UserID"].ToString() != user.Id.ToString())
+            if (session["UserID"] == null || session["UserID"].ToString() != user.UserId.ToString())
             {
-                session["UserID"] = user.Id;
+                session["UserID"] = user.UserId;
             }
             if (session["Role"] == null || session["Role"].ToString() != user.UserRole.ToString())
             {
@@ -61,7 +61,11 @@ namespace Site.Helpers
             session["TimeZoneInfo"] = tzi;
             session["TimeZoneCode"] = timezonecode;
         }
-
+        public static bool IsAdmin(HttpSessionStateBase session)
+        {
+            if (session["Role"] != null && session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString()) { return true; }
+            return false;
+        }
         public static bool IsOnMyUserDetailsPage(HttpSessionStateBase session, ViewContext context)
         {
             if(Site.Helpers.GlobalMethods.IsLoggedIn(session) &&

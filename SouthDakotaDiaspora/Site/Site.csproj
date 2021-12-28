@@ -267,6 +267,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\GlobalMethods.cs" />
+    <Compile Include="Models\Timeline\TimelineCreateViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineIndexViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

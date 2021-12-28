@@ -11,17 +11,21 @@ namespace Site.Controllers
 {
     public class TimelineController : Controller
     {
-        ITimelineEventData db;
-        public TimelineController(ITimelineEventData database)
+        IGameData games;
+        IActivityData activities;
+        ITimelineEventData timelineevents;
+        public TimelineController(ITimelineEventData timelineevents, IGameData games, IActivityData activities)
         {
-            db = database;
+            this.timelineevents = timelineevents;
+            this.games = games;
+            this.activities = activities;
         }
 
         [HttpGet]
         public ActionResult Index()
         {
             TimelineIndexViewModel model = new TimelineIndexViewModel();
-            int MAX_PER_TABLE = 8;
+            int MAX_PER_TABLE = 4;
 
             TimeZoneInfo localtimezone = TimeZoneInfo.Local; // server time (mountain)
             if (Session["TimeZoneInfo"] != null && Session["TimeZoneInfo"] is TimeZoneInfo)
@@ -30,48 +34,95 @@ namespace Site.Controllers
             }
             model.TimeZoneName = localtimezone.StandardName;
 
-            List<TimelineEvent> pastEvents = this.db.GetBeforeToday().ToList();
+            List<TimelineEvent> pastEvents = this.timelineevents.GetBeforeToday().ToList();
             int i;
-            for (i = 0; i < Math.Min(pastEvents.Count, MAX_PER_TABLE); i++)
+            for (i = Math.Max(0, pastEvents.Count - (1 + MAX_PER_TABLE)); i < Math.Min(pastEvents.Count, MAX_PER_TABLE); i++)
             {
                 TimelineEvent pastEvent = pastEvents[i];
-                model.PastEvents.Add(new TimelineRow(pastEvent, localtimezone));
+                Activity activity = this.activities.Get(pastEvent.ActivityId);
+                model.PastEvents.Add(new TimelineRow(pastEvent, localtimezone, activity));
             }
             if (pastEvents.Count > MAX_PER_TABLE) { model.MorePastEvents = true; }
 
-            List<TimelineEvent> todayEvents = this.db.GetToday().ToList();
+            List<TimelineEvent> todayEvents = this.timelineevents.GetToday().ToList();
             foreach (TimelineEvent todayEvent in todayEvents)
             {
-                model.TodayEvents.Add(new TimelineRow(todayEvent, localtimezone));
+                Activity activity = this.activities.Get(todayEvent.ActivityId);
+                model.TodayEvents.Add(new TimelineRow(todayEvent, localtimezone, activity));
             }
 
-            List<TimelineEvent> futureEvents = this.db.GetAfterToday().ToList();
+            List<TimelineEvent> futureEvents = this.timelineevents.GetAfterToday().ToList();
             for (i = 0; i < Math.Min(futureEvents.Count, MAX_PER_TABLE); i++)
             {
                 TimelineEvent futureEvent = futureEvents[i];
-                model.FutureEvents.Add(new TimelineRow(futureEvent, localtimezone));
+                Activity activity = this.activities.Get(futureEvent.ActivityId);
+                model.FutureEvents.Add(new TimelineRow(futureEvent, localtimezone, activity));
             }
             if (futureEvents.Count > MAX_PER_TABLE) { model.MoreFutureEvents = true; }
 
             return View(model);
         }
 
+        private void PopulateActivities(TimelineCreateViewModel model)
+        {
+            List<Activity> games = this.games.GetAll().Cast<Activity>().ToList();
+            List<Activity> shows = new List<Activity>() { new Activity() { ActivityId = 31, Name = "Test show A" }, new Activity() { ActivityId = 41, Name = "Test show B" } };
+            List<Activity> books = new List<Activity>();
+            List<Activity> projects = new List<Activity>();
+            model.GameSelection = TimelineCreateViewModel.ListToDropdown(games);
+            model.ShowSelection = TimelineCreateViewModel.ListToDropdown(shows);
+            model.BookSelection = TimelineCreateViewModel.ListToDropdown(books);
+            model.ProjectSelection = TimelineCreateViewModel.ListToDropdown(projects);
+        }
+
+
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            
+            if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
+            {
+                return RedirectToAction("Login", "Home", new { ra = "Create", rc = "Timeline" });
+            }
+            TimelineCreateViewModel model = new TimelineCreateViewModel(new TimelineEvent());
+            this.PopulateActivities(model);
+
+            return View(model);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TimelineEvent tevent)
+        public ActionResult Create(TimelineEvent tevent, FormCollection form)
         {
-            if (ModelState.IsValid)
+            //EventType
+            if (string.IsNullOrEmpty(form["ActivityType"]?.ToString() ?? ""))
             {
-                db.Add(tevent);
-                Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Successfully created event.");
-                return RedirectToAction("Index");
+                ModelState.AddModelError("", "Please choose an activity type");
             }
-            return View();
+
+            string ActivityID = form["ActivityID"].ToString();
+            int activityid;
+            if (int.TryParse(ActivityID, out activityid))
+            {
+                tevent.ActivityId = activityid;
+            }
+
+            Activity existing = this.activities.Get(activityid);
+            if (existing == null)
+            {
+                ModelState.AddModelError("", "Could not locate the activity in the database");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                TimelineCreateViewModel model = new TimelineCreateViewModel(new TimelineEvent());
+                this.PopulateActivities(model);
+
+                return View(model);
+            }
+
+            timelineevents.Add(tevent);
+            Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Successfully created event.");
+            return RedirectToAction("Index");
         }
 
 
@@ -84,14 +135,14 @@ namespace Site.Controllers
                 return RedirectToAction("Login", "Home", new { ra = "Index", rc = "Timeline" });
             }
 
-            var model = db.Get(id);
+            var model = timelineevents.Get(id);
             if (model == null)
             {
                 return View("NotFound");
             }
             else
             {
-                db.Delete(id);
+                timelineevents.Delete(id);
                 return RedirectToAction("Index");
             }
         }
@@ -99,7 +150,7 @@ namespace Site.Controllers
         [HttpGet]
         public ActionResult Details(int id)
         {
-            var model = db.Get(id);
+            var model = timelineevents.Get(id);
             if (model == null)
             {
                 return View("NotFound");
@@ -115,7 +166,7 @@ namespace Site.Controllers
                 return RedirectToAction("Login", "Home", new { ra = "Edit", rc = "Timeline", rid = id });
             }
 
-            var model = db.Get(id);
+            var model = timelineevents.Get(id);
             if (model == null)
             {
                 return View("NotFound");
@@ -127,7 +178,7 @@ namespace Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(TimelineEvent tevent)
         {
-            var existing = db.Get(tevent.Id);
+            var existing = timelineevents.Get(tevent.Id);
             if (existing == null)
             {
                 return View("NotFound");
@@ -135,7 +186,7 @@ namespace Site.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Update(tevent);
+                timelineevents.Update(tevent);
                 Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"'{tevent.Title}' updated successfully.");
                 return RedirectToAction("Index");
             }

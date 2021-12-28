@@ -4,27 +4,6 @@
     ViewBag.Title = "Edit";
 }
 
-@*DATE AND TIME PICKER*@
-@*@section Scripts {
-        @Scripts.Render("~/bundles/jqueryui")
-        @Styles.Render("~/Content/cssjqryUi")
-        @Scripts.Render("~/bundles/jquerytimepicker")
-        @Styles.Render("~/Content/jquerytimepicker")
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('input[type=datetime]').datetimepicker({
-                    timeFormat: 'HH:mm z',
-                    timezoneList: [
-                        { value: -300, label: 'Eastern' },
-                        { value: -360, label: 'Central' },
-                        { value: -420, label: 'Mountain' },
-                        { value: -480, label: 'Pacific' }
-                    ]
-                });
-            });
-        </script>
-    }*@
-
 
 @*DATE PICKER (No time)*@
 @section Scripts {
@@ -57,7 +36,7 @@ else
             <h4>Game</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.ActivityId)
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })

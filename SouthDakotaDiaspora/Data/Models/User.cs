@@ -9,7 +9,7 @@ namespace Data.Models
 {
     public class User
     {
-        public int Id { get; set; }
+        public int UserId { get; set; }
         [MaxLength(32)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }

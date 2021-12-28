@@ -4,8 +4,26 @@
     ViewBag.Title = "Edit";
 }
 
+@*DATE PICKER (No time)*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#updatepasswordcheckbox").change(function () {
+                if ($("#updatepasswordcheckbox:checked").val()) {
+                    $("#passwordfield").prop("disabled", false);
+                }
+                else {
+                    $("#passwordfield").prop("disabled", true);
+                }
+            });
+        });
+    </script>
+}
+
 <h2>Edit</h2>
-@if (Session["UserID"] != null && Model.Id.ToString() == Session["UserID"].ToString() ||
+@if (Session["UserID"] != null && Model.UserId.ToString() == Session["UserID"].ToString() ||
     (Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString() && Model.UserRole == Data.Models.UserRoleType.Contributor))
 {
     using (Html.BeginForm())
@@ -16,7 +34,7 @@
     <h4>User</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.UserId)
 
     <div class="form-group">
         @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -42,14 +60,6 @@
         </div>
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
     @if (Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString())
     {
         <div class="form-group">
@@ -66,6 +76,15 @@
         <div class="col-md-10">
             @Html.EnumDropDownListFor(model => model.TimeZonePreference, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.TimeZonePreference, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <br />
+    <div class="form-group">
+        <label class="control-label col-md-2">Update Password? <input name="UpdatePassword" type="checkbox" id="updatepasswordcheckbox"/></label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @disabled = true, @id="passwordfield" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
     </div>
 

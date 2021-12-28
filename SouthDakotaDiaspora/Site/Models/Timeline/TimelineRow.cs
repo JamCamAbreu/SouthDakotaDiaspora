@@ -9,16 +9,20 @@ namespace Site.Models.Timeline
 {
     public class TimelineRow
     {
-        const string TIME_FORMAT = "n2";
+        const int MAX_CHARACTERS = 16;
         public DateTime StartTime { get; set; }
         public string StartTimeDisplay { get; set; }
         public string Duration { get; set; }
         public string Platform { get; set; }
-        public string ActivityDisplay { get; set; }
+        public string PlatformAbbreviation { get; set; }
+        public string ActivityName { get; set; }
+        public string ActivityNameAbbreviated { get; set; }
+        public string Title { get; set; }
+        public string TitleAbbreviated { get; set; }
         public string Attending { get; set; }
         public int Id { get; set; }
         public TimelineRow () { }
-        public TimelineRow(TimelineEvent tevent, TimeZoneInfo localtimezone)
+        public TimelineRow(TimelineEvent tevent, TimeZoneInfo localtimezone, Activity activityinfo)
         {
             this.Id = tevent.Id;
 
@@ -26,11 +30,20 @@ namespace Site.Models.Timeline
             DateTime localizedEndTime = TimeZoneInfo.ConvertTime(tevent.EndTime, localtimezone);
             this.StartTime = localizedStartTime;
             this.StartTimeDisplay = this.CleanStartTime(localizedStartTime, localizedEndTime);
+
+            this.Title = tevent.Title;
+            this.TitleAbbreviated = this.Abbreviate(tevent.Title, MAX_CHARACTERS);
             
             this.Duration = this.CleanDuration(tevent.StartTime, tevent.EndTime);
 
-            this.Platform = tevent.Title; // Todo
-            this.ActivityDisplay = tevent.Title; // Todo
+            if (activityinfo != null)
+            {
+                this.Platform = activityinfo.Platform.ToString();
+                this.PlatformAbbreviation = this.Abbreviate(activityinfo.Platform.ToString(), MAX_CHARACTERS);
+
+                this.ActivityName = activityinfo.Name;
+                this.ActivityNameAbbreviated = this.Abbreviate(activityinfo.Name, MAX_CHARACTERS);
+            }
 
             if (tevent.UsersGoing != null && tevent.UsersGoing.Count > 0)
             {
@@ -39,7 +52,17 @@ namespace Site.Models.Timeline
             }
 
         }
-
+        protected string Abbreviate(string word, int maxChar)
+        {
+            if (!string.IsNullOrEmpty(word) && word.Length > maxChar)
+            {
+                return word.Substring(0, maxChar) + "...";
+            }
+            else
+            {
+                return word;
+            }
+        }
         protected string CleanStartTime(DateTime starttime, DateTime endtime)
         {
             // Future

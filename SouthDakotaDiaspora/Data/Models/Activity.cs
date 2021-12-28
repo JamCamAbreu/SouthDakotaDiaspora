@@ -9,7 +9,8 @@ namespace Data.Models
 {
     public class Activity
     {
-        public int Id { get; set; }
+        public string Discriminator { get; private set; }
+        public int ActivityId { get; set; }
         [Required]
         [MaxLength(64)]
         public string Name { get; set; }
@@ -18,5 +19,12 @@ namespace Data.Models
         [Required]
         public PlatformType Platform { get; set; }
         public List<Comment> Comments { get; set; }
+
+        public ICollection<TimelineEvent> TimelineEvents { get; set; }
+
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Release Date")]
+        public DateTime ReleaseDate { get; set; }
     }
 }

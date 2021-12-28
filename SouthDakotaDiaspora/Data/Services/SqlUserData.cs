@@ -39,7 +39,7 @@ namespace Data.Services
 
         public User Get(int id)
         {
-            return database.Users.FirstOrDefault(u => u.Id == id);
+            return database.Users.FirstOrDefault(u => u.UserId == id);
         }
         public User Get(string username, string password)
         {
@@ -53,13 +53,17 @@ namespace Data.Services
                    select u;
         }
 
-        public void Update(User user)
+        public void Update(User user, bool updatepassword = false)
         {
-            User existing = database.Users.Find(user.Id);
+            User existing = database.Users.Find(user.UserId);
             if (existing != null)
             {
+                if (updatepassword)
+                {
+                    existing.Password = user.Password;
+                }
+
                 existing.Username = user.Username;
-                existing.Password = user.Password;
                 existing.FirstName = user.FirstName;
                 existing.LastName = user.LastName;
                 existing.UserRole = user.UserRole;
