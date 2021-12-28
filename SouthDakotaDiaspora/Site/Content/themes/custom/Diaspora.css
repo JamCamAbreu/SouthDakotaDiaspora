@@ -83,25 +83,28 @@
     text-shadow: 1px 1px 1px #ffffff75;
 }
 .timeline-table td:nth-child(1) {
-    width: 24%;
+    width: 22%;
     margin-top: 4px;
 }
 .timeline-table td:nth-child(2) {
-    width: 18%;
+    width: 4%;
 }
 .timeline-table td:nth-child(3) {
-    width: 12%;
+    width: 16%;
 }
 .timeline-table td:nth-child(4) {
-    width: 9%;
+    width: 12%;
 }
 .timeline-table td:nth-child(5) {
     width: 9%;
 }
 .timeline-table td:nth-child(6) {
-    width: 22%;
+    width: 9%;
 }
 .timeline-table td:nth-child(7) {
+    width: 20%;
+}
+.timeline-table td:nth-child(8) {
     width: 8%;
 }
 

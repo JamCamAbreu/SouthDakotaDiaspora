@@ -8,10 +8,10 @@ using System.Web.Mvc;
 
 namespace Site.Controllers
 {
-    public class GamesController : Controller
+    public class BooksController : Controller
     {
-        IGameData db;
-        public GamesController(IGameData database)
+        IBookData db;
+        public BooksController(IBookData database)
         {
             this.db = database;
         }
@@ -28,17 +28,17 @@ namespace Site.Controllers
         {
             if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
             {
-                return RedirectToAction("Login", "Home", new { ra = "Create", rc = "Games" });
+                return RedirectToAction("Login", "Home", new { ra = "Create", rc = "Books" });
             }
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Game game)
+        public ActionResult Create(Book book)
         {
             if (ModelState.IsValid)
             {
-                db.Add(game);
+                db.Add(book);
                 return RedirectToAction("Index");
             }
             return View();
@@ -49,7 +49,7 @@ namespace Site.Controllers
         {
             if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
             {
-                return RedirectToAction("Login", "Home", new { ra="Edit", rc="Games", rid=id });
+                return RedirectToAction("Login", "Home", new { ra = "Edit", rc = "Books", rid = id });
             }
 
             var model = db.Get(id);
@@ -61,9 +61,9 @@ namespace Site.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Game game)
+        public ActionResult Edit(Book book)
         {
-            var existing = db.Get(game.ActivityId);
+            var existing = db.Get(book.ActivityId);
             if (existing == null)
             {
                 return View("NotFound");
@@ -71,11 +71,11 @@ namespace Site.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Update(game);
-                Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Successfully updated Game: {game.Name}");
+                db.Update(book);
+                Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Successfully updated Book: {book.Name}");
                 return RedirectToAction("Index");
             }
-            return View(game);
+            return View(book);
         }
 
         [HttpGet]
@@ -83,10 +83,10 @@ namespace Site.Controllers
         {
             if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
             {
-                return RedirectToAction("Login", "Home", new { ra = "Index", rc = "Games" });
+                return RedirectToAction("Login", "Home", new { ra = "Index", rc = "Books" });
             }
 
-            Game model = db.Get(id);
+            Book model = db.Get(id);
             if (model == null)
             {
                 return View("NotFound");
@@ -98,14 +98,14 @@ namespace Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection form)
         {
-            Game model = db.Get(id);
+            Book model = db.Get(id);
             if (model == null)
             {
                 return View("NotFound");
             }
 
             db.Delete(id);
-            Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Game '{model.Name}' was successfully removed.");
+            Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Book '{model.Name}' was successfully removed.");
             return RedirectToAction("Index");
         }
     }

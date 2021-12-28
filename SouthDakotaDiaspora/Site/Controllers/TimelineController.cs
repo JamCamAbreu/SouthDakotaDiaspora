@@ -12,12 +12,16 @@ namespace Site.Controllers
     public class TimelineController : Controller
     {
         IGameData games;
+        IShowData shows;
+        IBookData books;
         IActivityData activities;
         ITimelineEventData timelineevents;
-        public TimelineController(ITimelineEventData timelineevents, IGameData games, IActivityData activities)
+        public TimelineController(ITimelineEventData timelineevents, IGameData games, IShowData shows, IBookData books, IActivityData activities)
         {
             this.timelineevents = timelineevents;
             this.games = games;
+            this.shows = shows;
+            this.books = books;
             this.activities = activities;
         }
 
@@ -66,8 +70,8 @@ namespace Site.Controllers
         private void PopulateActivities(TimelineCreateViewModel model)
         {
             List<Activity> games = this.games.GetAll().Cast<Activity>().ToList();
-            List<Activity> shows = new List<Activity>() { new Activity() { ActivityId = 31, Name = "Test show A" }, new Activity() { ActivityId = 41, Name = "Test show B" } };
-            List<Activity> books = new List<Activity>();
+            List<Activity> shows = this.shows.GetAll().Cast<Activity>().ToList();
+            List<Activity> books = this.books.GetAll().Cast<Activity>().ToList();
             List<Activity> projects = new List<Activity>();
             model.GameSelection = TimelineCreateViewModel.ListToDropdown(games);
             model.ShowSelection = TimelineCreateViewModel.ListToDropdown(shows);

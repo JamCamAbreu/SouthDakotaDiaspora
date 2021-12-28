@@ -12,7 +12,6 @@
                 c => new
                     {
                         ActivityId = c.Int(nullable: false, identity: true),
-                        Discriminator = c.String(),
                         Name = c.String(nullable: false, maxLength: 64),
                         Description = c.String(maxLength: 1024),
                         Platform = c.Int(nullable: false),
@@ -21,7 +20,7 @@
                         Author = c.String(),
                         NumberPages = c.Int(),
                         DateStarted = c.DateTime(),
-                        Discriminator1 = c.String(nullable: false, maxLength: 128),
+                        Discriminator = c.String(nullable: false, maxLength: 128),
                         ProjectOwner_UserId = c.Int(),
                     })
                 .PrimaryKey(t => t.ActivityId)

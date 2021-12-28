@@ -94,9 +94,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202112272247549_Initial.cs" />
-    <Compile Include="Migrations\202112272247549_Initial.designer.cs">
-      <DependentUpon>202112272247549_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202112282208241_Initial.cs" />
+    <Compile Include="Migrations\202112282208241_Initial.designer.cs">
+      <DependentUpon>202112282208241_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -109,14 +109,18 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserRoleType.cs" />
     <Compile Include="Models\UserTimeZoneType.cs" />
-    <Compile Include="Models\Video.cs" />
+    <Compile Include="Models\Show.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\DiscordNotifier.cs" />
     <Compile Include="Services\IActivityData.cs" />
+    <Compile Include="Services\IBookData.cs" />
+    <Compile Include="Services\IShowData.cs" />
     <Compile Include="Services\IGameData.cs" />
     <Compile Include="Services\ITimelineEventData.cs" />
     <Compile Include="Services\SouthDakotaDiasporaDbContext.cs" />
     <Compile Include="Services\SqlActivityData.cs" />
+    <Compile Include="Services\SqlBookData.cs" />
+    <Compile Include="Services\SqlShowData.cs" />
     <Compile Include="Services\SqlGameData.cs" />
     <Compile Include="Services\SqlTimelineEventData.cs" />
     <Compile Include="Services\SqlUserData.cs" />
@@ -133,8 +137,8 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112272247549_Initial.resx">
-      <DependentUpon>202112272247549_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202112282208241_Initial.resx">
+      <DependentUpon>202112282208241_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

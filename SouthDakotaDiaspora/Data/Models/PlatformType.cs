@@ -9,19 +9,10 @@ namespace Data.Models
 {
     public enum PlatformType
     {
-        [Display(Name = "Physical Location")]
-        PhysicalLocation,
+        [Display(Name = "Website")]
+        Website,
 
-        [Display(Name = "Discord Meeting")]
-        DiscordMeeting,
-
-        [Display(Name = "Streaming")]
-        Streaming,
-
-        [Display(Name = "Browser Site")]
-        BrowserSite,
-
-        [Display(Name = "Steam")]
+        [Display(Name = "Steam Game")]
         Steam,
 
         [Display(Name = "Epic")]
@@ -47,6 +38,12 @@ namespace Data.Models
 
         [Display(Name = "Cross-Platform")]
         CrossPlatform,
+
+        [Display(Name = "Streaming from Discord")]
+        StreamFromDiscord,
+
+        [Display(Name = "Physical Location")]
+        PhysicalLocation,
 
         [Display(Name = "Other")]
         Other

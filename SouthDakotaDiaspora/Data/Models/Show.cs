@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Data.Models
 {
-    public class Video : Activity
+    public class Show : Activity
     {
     }
 }

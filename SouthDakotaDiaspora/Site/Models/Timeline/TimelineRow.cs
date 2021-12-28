@@ -19,6 +19,7 @@ namespace Site.Models.Timeline
         public string ActivityNameAbbreviated { get; set; }
         public string Title { get; set; }
         public string TitleAbbreviated { get; set; }
+        public string Type { get; set; }
         public string Attending { get; set; }
         public int Id { get; set; }
         public TimelineRow () { }
@@ -51,6 +52,8 @@ namespace Site.Models.Timeline
                 this.Attending = userFirstNames;
             }
 
+            this.Type = GetTypeSymbol(null);
+
         }
         protected string Abbreviate(string word, int maxChar)
         {
@@ -61,6 +64,29 @@ namespace Site.Models.Timeline
             else
             {
                 return word;
+            }
+        }
+        protected string GetTypeSymbol(Type activityType)
+        {
+            if (activityType == typeof(Game))
+            {
+                return "🎲";
+            }
+            else if (activityType == typeof(Show))
+            {
+                return "📺";
+            }
+            else if (activityType == typeof(Book))
+            {
+                return "📚";
+            }
+            else if (activityType == typeof(Project))
+            {
+                return "🧪";
+            }
+            else
+            {
+                return "?";
             }
         }
         protected string CleanStartTime(DateTime starttime, DateTime endtime)
@@ -126,15 +152,15 @@ namespace Site.Models.Timeline
             TimeSpan duration = endtime - starttime;
             if (duration.TotalMinutes < 60)
             {
-                return $"{(int)Math.Round(duration.TotalMinutes)} minutes";
+                return $"{(float)Math.Round(duration.TotalMinutes, 1)} minutes";
             }
             else if (duration.TotalHours < 24)
             {
-                return $"{(int)Math.Round(duration.TotalHours)} hours";
+                return $"{(float)Math.Round(duration.TotalHours, 1)} hours";
             }
             else
             {
-                return $"{(int)Math.Round(duration.TotalDays)} days";
+                return $"{(float)Math.Round(duration.TotalDays, 1)} days";
             }
         }
     }

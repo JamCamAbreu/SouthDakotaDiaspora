@@ -51,9 +51,15 @@ namespace Site
             #endregion
 
             #region Show Data
+            builder.RegisterType<SqlShowData>()
+                .As<IShowData>()
+                .InstancePerRequest();
             #endregion
 
             #region Book Data
+            builder.RegisterType<SqlBookData>()
+                .As<IBookData>()
+                .InstancePerRequest();
             #endregion
 
             #region Project Data

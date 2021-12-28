@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +11,6 @@ namespace Data.Models
 {
     public class Activity
     {
-        public string Discriminator { get; private set; }
         public int ActivityId { get; set; }
         [Required]
         [MaxLength(64)]
@@ -18,6 +19,7 @@ namespace Data.Models
         public string Description { get; set; }
         [Required]
         public PlatformType Platform { get; set; }
+        public string WebsiteUrl { get; set; }
         public List<Comment> Comments { get; set; }
 
         public ICollection<TimelineEvent> TimelineEvents { get; set; }
