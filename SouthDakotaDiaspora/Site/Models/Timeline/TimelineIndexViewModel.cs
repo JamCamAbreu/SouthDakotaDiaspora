@@ -10,24 +10,24 @@ namespace Site.Models.Timeline
     {
         public TimelineIndexViewModel()
         {
-            Scaffolding = new TimelineRow();
+            Scaffolding = new TimelineEventInfo();
 
-            PastEvents = new List<TimelineRow>();
-            TodayEvents = new List<TimelineRow>();
-            FutureEvents = new List<TimelineRow>();
+            PastEvents = new List<TimelineEventInfo>();
+            TodayEvents = new List<TimelineEventInfo>();
+            FutureEvents = new List<TimelineEventInfo>();
 
             this.MorePastEvents = false;
             this.MoreFutureEvents = false;
         }
-        public TimelineRow Scaffolding { get; set; }
+        public TimelineEventInfo Scaffolding { get; set; }
         public string TimeZoneName { get; set; }
 
-        public List<TimelineRow> PastEvents { get; set; }
+        public List<TimelineEventInfo> PastEvents { get; set; }
         public bool MorePastEvents { get; set; }
 
-        public List<TimelineRow> TodayEvents { get; set; }
+        public List<TimelineEventInfo> TodayEvents { get; set; }
 
-        public List<TimelineRow> FutureEvents { get; set; }
+        public List<TimelineEventInfo> FutureEvents { get; set; }
         public bool MoreFutureEvents { get; set; }
     }
 }

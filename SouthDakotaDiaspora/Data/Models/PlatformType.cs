@@ -9,8 +9,8 @@ namespace Data.Models
 {
     public enum PlatformType
     {
-        [Display(Name = "Website")]
-        Website,
+        [Display(Name = "Website Application")]
+        WebsiteApp,
 
         [Display(Name = "Steam Game")]
         Steam,

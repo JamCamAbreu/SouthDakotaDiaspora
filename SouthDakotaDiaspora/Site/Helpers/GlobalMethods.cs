@@ -138,5 +138,20 @@ namespace Site.Helpers
             if (messages.Count == 0) return null;
             else return messages.Dequeue();
         }
+
+        public const int MAX_CHARACTERS_SMALL = 8;
+        public const int MAX_CHARACTERS_MEDIUM = 16;
+        public const int MAX_CHARACTERS_LARGE = 32;
+        public static string Abbreviate(string word, int maxChars)
+        {
+            if (!string.IsNullOrEmpty(word) && word.Length > maxChars)
+            {
+                return word.Substring(0, maxChars) + "...";
+            }
+            else
+            {
+                return word;
+            }
+        }
     }
 }

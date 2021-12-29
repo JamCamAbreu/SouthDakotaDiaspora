@@ -16,7 +16,7 @@ namespace Data.Services
             {
                 new Game() { ActivityId = 1, Name = "Valheim", Platform = PlatformType.Steam, ReleaseDate = DateTime.Parse("12/14/2021 10:32 -0700")},
                 new Game() { ActivityId = 2, Name = "Mario Kart 8", Platform = PlatformType.NintendoSwitch, ReleaseDate = DateTime.Parse("10/16/2020")},
-                new Game() { ActivityId = 3, Name = "Troyes", Platform = PlatformType.Website, ReleaseDate = DateTime.Parse("01/01/2016")},
+                new Game() { ActivityId = 3, Name = "Troyes", Platform = PlatformType.WebsiteApp, ReleaseDate = DateTime.Parse("01/01/2016")},
             };
         }
         public IEnumerable<Game> GetAll()

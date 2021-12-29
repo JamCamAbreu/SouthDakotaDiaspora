@@ -268,9 +268,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\GlobalMethods.cs" />
+    <Compile Include="Models\Books\BookInfo.cs" />
+    <Compile Include="Models\Books\BooksIndexViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineCreateViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineIndexViewModel.cs" />
-    <Compile Include="Models\Timeline\TimelineRow.cs" />
+    <Compile Include="Models\Timeline\TimelineEventInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SiteStartup.cs" />
   </ItemGroup>
@@ -397,10 +399,10 @@
     <Content Include="Views\Shows\Create.cshtml" />
     <Content Include="Views\Shows\Edit.cshtml" />
     <Content Include="Views\Shows\Delete.cshtml" />
-    <Content Include="Views\Books\Index.cshtml" />
     <Content Include="Views\Books\Create.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Delete.cshtml" />
+    <Content Include="Views\Books\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

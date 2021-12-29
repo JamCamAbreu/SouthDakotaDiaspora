@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using Site.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,8 @@ using System.Web;
 
 namespace Site.Models.Timeline
 {
-    public class TimelineRow
+    public class TimelineEventInfo
     {
-        const int MAX_CHARACTERS = 16;
         public DateTime StartTime { get; set; }
         public string StartTimeDisplay { get; set; }
         public string Duration { get; set; }
@@ -22,8 +22,8 @@ namespace Site.Models.Timeline
         public string Type { get; set; }
         public string Attending { get; set; }
         public int Id { get; set; }
-        public TimelineRow () { }
-        public TimelineRow(TimelineEvent tevent, TimeZoneInfo localtimezone, Activity activityinfo)
+        public TimelineEventInfo () { }
+        public TimelineEventInfo(TimelineEvent tevent, TimeZoneInfo localtimezone, Activity activityinfo)
         {
             this.Id = tevent.Id;
 
@@ -33,17 +33,17 @@ namespace Site.Models.Timeline
             this.StartTimeDisplay = this.CleanStartTime(localizedStartTime, localizedEndTime);
 
             this.Title = tevent.Title;
-            this.TitleAbbreviated = this.Abbreviate(tevent.Title, MAX_CHARACTERS);
+            this.TitleAbbreviated = GlobalMethods.Abbreviate(tevent.Title, GlobalMethods.MAX_CHARACTERS_MEDIUM);
             
             this.Duration = this.CleanDuration(tevent.StartTime, tevent.EndTime);
 
             if (activityinfo != null)
             {
                 this.Platform = activityinfo.Platform.ToString();
-                this.PlatformAbbreviation = this.Abbreviate(activityinfo.Platform.ToString(), MAX_CHARACTERS);
+                this.PlatformAbbreviation = GlobalMethods.Abbreviate(activityinfo.Platform.ToString(), GlobalMethods.MAX_CHARACTERS_MEDIUM);
 
                 this.ActivityName = activityinfo.Name;
-                this.ActivityNameAbbreviated = this.Abbreviate(activityinfo.Name, MAX_CHARACTERS);
+                this.ActivityNameAbbreviated = GlobalMethods.Abbreviate(activityinfo.Name, GlobalMethods.MAX_CHARACTERS_MEDIUM);
             }
 
             if (tevent.UsersGoing != null && tevent.UsersGoing.Count > 0)
@@ -52,35 +52,25 @@ namespace Site.Models.Timeline
                 this.Attending = userFirstNames;
             }
 
-            this.Type = GetTypeSymbol(null);
+            this.Type = GetTypeSymbol(activityinfo.ActivityType);
 
         }
-        protected string Abbreviate(string word, int maxChar)
+
+        protected string GetTypeSymbol(string activityType)
         {
-            if (!string.IsNullOrEmpty(word) && word.Length > maxChar)
-            {
-                return word.Substring(0, maxChar) + "...";
-            }
-            else
-            {
-                return word;
-            }
-        }
-        protected string GetTypeSymbol(Type activityType)
-        {
-            if (activityType == typeof(Game))
+            if (activityType == Game.ACTIVITY_TYPE)
             {
                 return "🎲";
             }
-            else if (activityType == typeof(Show))
+            else if (activityType == Show.ACTIVITY_TYPE)
             {
                 return "📺";
             }
-            else if (activityType == typeof(Book))
+            else if (activityType == Book.ACTIVITY_TYPE)
             {
                 return "📚";
             }
-            else if (activityType == typeof(Project))
+            else if (activityType == Project.ACTIVITY_TYPE)
             {
                 return "🧪";
             }

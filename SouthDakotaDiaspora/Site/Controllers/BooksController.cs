@@ -1,5 +1,7 @@
 ﻿using Data.Models;
 using Data.Services;
+using Site.Models.Books;
+using Site.Models.Timeline;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +21,13 @@ namespace Site.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = db.GetAll();
-            return View(model);
+            IEnumerable<Book> rawbooks= db.GetAll();
+            List<BookInfo> books = new List<BookInfo>();
+            foreach (Book rawbook in rawbooks)
+            {
+                books.Add(new BookInfo(rawbook));
+            }
+            return View(books);
         }
 
         [HttpGet]

@@ -44,7 +44,7 @@ namespace Site.Controllers
             {
                 TimelineEvent pastEvent = pastEvents[i];
                 Activity activity = this.activities.Get(pastEvent.ActivityId);
-                model.PastEvents.Add(new TimelineRow(pastEvent, localtimezone, activity));
+                model.PastEvents.Add(new TimelineEventInfo(pastEvent, localtimezone, activity));
             }
             if (pastEvents.Count > MAX_PER_TABLE) { model.MorePastEvents = true; }
 
@@ -52,7 +52,7 @@ namespace Site.Controllers
             foreach (TimelineEvent todayEvent in todayEvents)
             {
                 Activity activity = this.activities.Get(todayEvent.ActivityId);
-                model.TodayEvents.Add(new TimelineRow(todayEvent, localtimezone, activity));
+                model.TodayEvents.Add(new TimelineEventInfo(todayEvent, localtimezone, activity));
             }
 
             List<TimelineEvent> futureEvents = this.timelineevents.GetAfterToday().ToList();
@@ -60,7 +60,7 @@ namespace Site.Controllers
             {
                 TimelineEvent futureEvent = futureEvents[i];
                 Activity activity = this.activities.Get(futureEvent.ActivityId);
-                model.FutureEvents.Add(new TimelineRow(futureEvent, localtimezone, activity));
+                model.FutureEvents.Add(new TimelineEventInfo(futureEvent, localtimezone, activity));
             }
             if (futureEvents.Count > MAX_PER_TABLE) { model.MoreFutureEvents = true; }
 
