@@ -111,6 +111,7 @@
     <Compile Include="Models\UserTimeZoneType.cs" />
     <Compile Include="Models\Show.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Datetime.cs" />
     <Compile Include="Services\DiscordNotifier.cs" />
     <Compile Include="Services\IActivityData.cs" />
     <Compile Include="Services\IBookData.cs" />
@@ -127,8 +128,6 @@
     <Compile Include="Services\SqlTimelineEventData.cs" />
     <Compile Include="Services\SqlUserData.cs" />
     <Compile Include="Services\TestGameData.cs" />
-    <Compile Include="Services\TestTimelineEventData.cs" />
-    <Compile Include="Services\TestUserData.cs" />
     <Compile Include="Services\IUserData.cs" />
   </ItemGroup>
   <ItemGroup>

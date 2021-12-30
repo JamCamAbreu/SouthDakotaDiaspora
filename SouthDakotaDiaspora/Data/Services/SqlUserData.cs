@@ -71,5 +71,15 @@ namespace Data.Services
                 database.SaveChanges();
             }
         }
+
+        public void UpdateLoginDate(User user, DateTime date)
+        {
+            User existing = database.Users.Find(user.UserId);
+            if (existing != null)
+            {
+                existing.LastLogin = date;
+                database.SaveChanges();
+            }
+        }
     }
 }

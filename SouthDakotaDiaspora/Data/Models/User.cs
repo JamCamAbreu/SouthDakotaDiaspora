@@ -29,5 +29,9 @@ namespace Data.Models
         public UserRoleType UserRole { get; set; } = UserRoleType.Contributor;
         [Display(Name = "Time Zone Preference")]
         public UserTimeZoneType TimeZonePreference { get; set; }
+        [DataType(DataType.DateTime)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
+        [Display(Name = "Last Login")]
+        public DateTime? LastLogin { get; set; }
     }
 }

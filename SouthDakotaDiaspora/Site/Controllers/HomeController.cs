@@ -79,6 +79,7 @@ namespace Site.Controllers
                 if (existing != null)
                 {
                     Helpers.GlobalMethods.UpdateSession(this.Session, existing);
+                    db.UpdateLoginDate(existing, DateTime.Now);
 
                     if (!string.IsNullOrEmpty(ra) && !string.IsNullOrEmpty(rc))
                     {

@@ -160,5 +160,61 @@ namespace Site.Helpers
             string lastinitial = !string.IsNullOrEmpty(lastname) ? lastname.Substring(0, 1) : "";
             return $"{firstname} {lastinitial}.";
         }
+
+        public static string FormatTime(DateTime? timenullable)
+        {
+            if (timenullable == null) return "";
+            DateTime time = (DateTime)timenullable;
+
+            // Future
+            if (time >= DateTime.Now)
+            {
+                TimeSpan timeuntil = time - DateTime.Now;
+                if (timeuntil.TotalMinutes < 5)
+                {
+                    return $"In a few minutes";
+                }
+                else if (timeuntil.TotalMinutes < 60)
+                {
+                    return $"In {(int)Math.Round(timeuntil.TotalMinutes)} minutes ({time.ToString("h:mm tt")})";
+                }
+                else if (timeuntil.TotalHours < 24)
+                {
+                    return $"In {(int)Math.Round(timeuntil.TotalHours)} hours ({time.ToString("h:mm tt")})";
+                }
+                else if (time > DateTime.Today.AddDays(1) && time < DateTime.Today.AddDays(2))
+                {
+                    return $"Tomorrow ({time.ToString("h:mm tt")})";
+                }
+                else
+                {
+                    return $"In {(int)Math.Round(timeuntil.TotalDays)} days ({time.ToString("h:mm tt")})";
+                }
+            }
+
+            // Past
+            else
+            {
+                TimeSpan timeago = DateTime.Now - time;
+
+                // Event Ended some time today:
+                if (timeago.TotalMinutes < 10)
+                {
+                    return "A few minutes ago";
+                }
+                else if (timeago.TotalMinutes < 60)
+                {
+                    return $"{(int)Math.Round(timeago.TotalMinutes)} minutes ago";
+                }
+                else if (timeago.TotalHours < 24)
+                {
+                    return $"{(int)Math.Round(timeago.TotalHours)} hours ago";
+                }
+                else
+                {
+                    return $"{(int)Math.Round(timeago.TotalDays)} days ago";
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Data.Services
         User Get(int id);
         void Add(User user);
         void Update(User user, bool updatepassword = false);
+        void UpdateLoginDate(User user, DateTime date);
         void Delete(int id);
     }
 }

@@ -49,6 +49,13 @@
         <dd>
             @Html.DisplayFor(model => model.TimeZonePreference)
         </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastLogin)
+        </dt>
+
+        <dd>
+            @Site.Helpers.GlobalMethods.FormatTime(Model.LastLogin)
+        </dd>
     </dl>
 </div>
 <p>
