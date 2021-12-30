@@ -35,7 +35,7 @@
 
     @foreach (var item in Model)
     {
-<tr class="clickable-row" onclick="clickrow('@Url.Action("Edit", new { id = item.ActivityId})');">
+<tr class="clickable-row" onclick="clickrow('@Url.Action("Details", new { id = item.ActivityId})');">
     <td title="@Html.DisplayFor(modelItem => item.Name)">
         @Html.DisplayFor(modelItem => item.NameAbbreviated)
     </td>

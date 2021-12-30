@@ -30,6 +30,17 @@ namespace Site.Controllers
         }
 
         [HttpGet]
+        public ActionResult Details(int id)
+        {
+            Project existing = db.Get(id);
+            if (existing == null)
+            {
+                return View("NotFound");
+            }
+            return View(existing);
+        }
+
+        [HttpGet]
         public ActionResult Create()
         {
             if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))

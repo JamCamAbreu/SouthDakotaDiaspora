@@ -410,6 +410,10 @@
     <Content Include="Views\Projects\Create.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Projects\Delete.cshtml" />
+    <Content Include="Views\Games\Details.cshtml" />
+    <Content Include="Views\Shows\Details.cshtml" />
+    <Content Include="Views\Books\Details.cshtml" />
+    <Content Include="Views\Projects\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

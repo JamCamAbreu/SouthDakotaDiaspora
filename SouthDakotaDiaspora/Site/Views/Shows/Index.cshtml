@@ -28,7 +28,7 @@
 
     @foreach (var item in Model)
     {
-        <tr class="clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.ActivityId})'">
+        <tr class="clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.ActivityId})'">
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
