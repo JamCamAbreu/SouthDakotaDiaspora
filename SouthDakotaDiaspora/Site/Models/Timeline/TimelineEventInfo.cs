@@ -17,15 +17,17 @@ namespace Site.Models.Timeline
         public string PlatformAbbreviation { get; set; }
         public string ActivityName { get; set; }
         public string ActivityNameAbbreviated { get; set; }
+        public int ActivityReferenceId { get; set; }
+        public string ActivityType { get; set; }
         public string Title { get; set; }
         public string TitleAbbreviated { get; set; }
         public string Type { get; set; }
         public string Attending { get; set; }
-        public int Id { get; set; }
+        public int TimelineEventId { get; set; }
         public TimelineEventInfo () { }
         public TimelineEventInfo(TimelineEvent tevent, TimeZoneInfo localtimezone, Activity activityinfo)
         {
-            this.Id = tevent.Id;
+            this.TimelineEventId = tevent.TimelineEventId;
 
             DateTime localizedStartTime = TimeZoneInfo.ConvertTime(tevent.StartTime, localtimezone);
             DateTime localizedEndTime = TimeZoneInfo.ConvertTime(tevent.EndTime, localtimezone);
@@ -44,6 +46,8 @@ namespace Site.Models.Timeline
 
                 this.ActivityName = activityinfo.Name;
                 this.ActivityNameAbbreviated = GlobalMethods.Abbreviate(activityinfo.Name, GlobalMethods.MAX_CHARACTERS_MEDIUM);
+                this.ActivityReferenceId = activityinfo.ActivityId;
+                this.ActivityType = activityinfo.ActivityType;
             }
 
             if (tevent.UsersGoing != null && tevent.UsersGoing.Count > 0)

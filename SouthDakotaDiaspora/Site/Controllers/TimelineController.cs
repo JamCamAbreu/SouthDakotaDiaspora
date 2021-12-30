@@ -182,7 +182,7 @@ namespace Site.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(TimelineEvent tevent)
         {
-            var existing = timelineevents.Get(tevent.Id);
+            var existing = timelineevents.Get(tevent.TimelineEventId);
             if (existing == null)
             {
                 return View("NotFound");

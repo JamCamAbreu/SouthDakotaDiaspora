@@ -94,9 +94,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\202112282208241_Initial.cs" />
-    <Compile Include="Migrations\202112282208241_Initial.designer.cs">
-      <DependentUpon>202112282208241_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202112301651086_Initial.cs" />
+    <Compile Include="Migrations\202112301651086_Initial.designer.cs">
+      <DependentUpon>202112301651086_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -137,8 +137,8 @@
     <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202112282208241_Initial.resx">
-      <DependentUpon>202112282208241_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202112301651086_Initial.resx">
+      <DependentUpon>202112301651086_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

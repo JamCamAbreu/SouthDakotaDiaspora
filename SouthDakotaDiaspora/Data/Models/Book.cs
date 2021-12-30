@@ -12,10 +12,10 @@ namespace Data.Models
     {
         [DataType(DataType.DateTime)]
         [Display(Name = "Publish Date")]
-        public DateTime PublishDate { get; set; }
+        public DateTime? PublishDate { get; set; }
         public string Author { get; set; }
         [Display(Name = "Number of Pages")]
-        public int NumberPages { get; set; }
+        public int? NumberPages { get; set; }
 
 
         [NotMapped]

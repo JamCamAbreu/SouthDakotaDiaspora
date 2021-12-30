@@ -16,7 +16,8 @@ namespace Data.Models
         [MaxLength(64)]
 
         public string ActivityType { get; set; }
-
+        [Required]
+        [MaxLength(64)]
         public string Name { get; set; }
         [MaxLength(1024)]
         public string Description { get; set; }
@@ -31,6 +32,6 @@ namespace Data.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Release Date")]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
     }
 }

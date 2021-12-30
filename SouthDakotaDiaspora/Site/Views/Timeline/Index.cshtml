@@ -12,24 +12,22 @@
 <table class="timeline-table table" style="text-align: center;">
 
     @* HEADERS *@
-    <tr class="timeline-head"><td><h3></h3></td><td>Type</td><td>Title</td><td>Activity</td><td>Duration</td><td>Platform</td><td>Attending</td><td></td></tr>
+    <tr class="timeline-head"><td><h3></h3></td><td>Activity</td><td>Description</td><td>Duration</td><td>Platform</td><td>Attending</td><td></td></tr>
 
     <!-- Past Events -->
-    <tr class="timeline-prev"><td><h3 class="timeline-category-small">@("<--") Previous</h3></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-prev"><td><h3 class="timeline-category-small">@("<--") Previous</h3></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.PastEvents)
     {
-<tr class="timeline-prev clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.Id})'">
+<tr class="timeline-prev clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.TimelineEventId})'">
     <td>
         @Html.DisplayFor(modelItem => item.StartTimeDisplay)
     </td>
-    <td>
+    <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
         @Html.DisplayFor(modelItem => item.Type)
+        @(Html.ActionLink(Html.DisplayFor(modelItem => item.ActivityNameAbbreviated).ToString(), "Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId }, new { }))
     </td>
     <td title="@Html.DisplayFor(modelItem => item.Title)">
         @Html.DisplayFor(modelItem => item.TitleAbbreviated)
-    </td>
-    <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
-        @Html.DisplayFor(modelItem => item.ActivityNameAbbreviated)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Duration)
@@ -43,7 +41,7 @@
     <td>
         @if (Site.Helpers.GlobalMethods.IsAdmin(this.Session))
         {
-            using (Html.BeginForm("Delete", "Timeline", new { id = item.Id }, FormMethod.Post, new { @class = "buttonless-button" }))
+            using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))
             {
                 @Html.AntiForgeryToken()
                 <input class="timeline-prev buttonless-button" type="submit" value="Delete" />
@@ -54,21 +52,19 @@
     }
 
     <!-- Today Events -->
-    <tr class="timeline-today"><td><span class="timeline-category-large">~ Now/Soon ~</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-today"><td><span class="timeline-category-large">~ Now/Soon ~</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.TodayEvents)
     {
-<tr class="timeline-today clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.Id})'">
+<tr class="timeline-today clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.TimelineEventId})'">
     <td>
         @Html.DisplayFor(modelItem => item.StartTimeDisplay)
     </td>
-    <td>
+    <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
         @Html.DisplayFor(modelItem => item.Type)
+        @(Html.ActionLink(Html.DisplayFor(modelItem => item.ActivityNameAbbreviated).ToString(), "Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId }, new { }))
     </td>
     <td title="@Html.DisplayFor(modelItem => item.Title)">
         @Html.DisplayFor(modelItem => item.TitleAbbreviated)
-    </td>
-    <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
-        @Html.DisplayFor(modelItem => item.ActivityNameAbbreviated)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Duration)
@@ -80,7 +76,7 @@
         @Html.DisplayFor(modelItem => item.Attending)
     </td>
     <td>
-        @using (Html.BeginForm("Delete", "Timeline", new { id = item.Id }, FormMethod.Post, new { @class = "buttonless-button" }))
+        @using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))
         {
             @Html.AntiForgeryToken()
             <input class="timeline-today buttonless-button" type="submit" value="Delete" />
@@ -90,21 +86,19 @@
     }
 
     <!-- Future Events -->
-    <tr class="timeline-future"><td><h3 class="timeline-category-small">Later --></h3></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-future"><td><h3 class="timeline-category-small">Later --></h3></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.FutureEvents)
     {
-<tr class="timeline-future clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.Id})'">
+<tr class="timeline-future clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.TimelineEventId})'">
     <td>
         @Html.DisplayFor(modelItem => item.StartTimeDisplay)
     </td>
-    <td>
+    <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
         @Html.DisplayFor(modelItem => item.Type)
+        @(Html.ActionLink(Html.DisplayFor(modelItem => item.ActivityNameAbbreviated).ToString(), "Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId }, new { }))
     </td>
     <td title="@Html.DisplayFor(modelItem => item.Title)">
         @Html.DisplayFor(modelItem => item.TitleAbbreviated)
-    </td>
-    <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
-        @Html.DisplayFor(modelItem => item.ActivityNameAbbreviated)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Duration)
@@ -116,7 +110,7 @@
         @Html.DisplayFor(modelItem => item.Attending)
     </td>
     <td>
-        @using (Html.BeginForm("Delete", "Timeline", new { id = item.Id }, FormMethod.Post, new { @class = "buttonless-button" }))
+        @using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))
         {
             @Html.AntiForgeryToken()
             <input class="timeline-future buttonless-button" type="submit" value="Delete" />

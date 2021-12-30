@@ -9,7 +9,8 @@ namespace Data.Models
 {
     public class TimelineEvent
     {
-        public int Id { get; set; }
+        [Key]
+        public int TimelineEventId { get; set; }
         [MaxLength(128)]
         public string Title { get; set; }
         public int ActivityId { get; set; }

@@ -74,7 +74,7 @@ namespace Data.Services
         public void Update(TimelineEvent timelineEvent)
         {
             if (timelineEvent == null) return;
-            TimelineEvent existing = this.Get(timelineEvent.Id);
+            TimelineEvent existing = this.Get(timelineEvent.TimelineEventId);
             if (existing != null)
             {
                 existing.Host = timelineEvent.Host;

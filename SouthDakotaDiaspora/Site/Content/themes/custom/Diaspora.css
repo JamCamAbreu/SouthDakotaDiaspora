@@ -87,24 +87,21 @@
     margin-top: 4px;
 }
 .timeline-table td:nth-child(2) {
-    width: 4%;
+    width: 16%;
 }
 .timeline-table td:nth-child(3) {
     width: 16%;
 }
 .timeline-table td:nth-child(4) {
-    width: 12%;
+    width: 9%;
 }
 .timeline-table td:nth-child(5) {
     width: 9%;
 }
 .timeline-table td:nth-child(6) {
-    width: 9%;
-}
-.timeline-table td:nth-child(7) {
     width: 20%;
 }
-.timeline-table td:nth-child(8) {
+.timeline-table td:nth-child(7) {
     width: 8%;
 }
 

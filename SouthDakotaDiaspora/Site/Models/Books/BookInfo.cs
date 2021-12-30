@@ -10,8 +10,8 @@ namespace Site.Models.Books
     public class BookInfo
     {
         public int ActivityId { get; set; }
-        public DateTime PublishDate { get; set; }
-        public int NumberOfPages { get; set; }
+        public DateTime? PublishDate { get; set; }
+        public int? NumberOfPages { get; set; }
         public string Platform { get; set; }
         public string PlatformAbbreviation { get; set; }
         public string Name { get; set; }
