@@ -142,6 +142,7 @@ namespace Site.Helpers
         public const int MAX_CHARACTERS_SMALL = 8;
         public const int MAX_CHARACTERS_MEDIUM = 16;
         public const int MAX_CHARACTERS_LARGE = 32;
+        public const int MAX_CHARACTERS_HUGE = 64;
         public static string Abbreviate(string word, int maxChars)
         {
             if (!string.IsNullOrEmpty(word) && word.Length > maxChars)
@@ -152,6 +153,12 @@ namespace Site.Helpers
             {
                 return word;
             }
+        }
+
+        public static string AbbreviateName(string firstname, string lastname)
+        {
+            string lastinitial = !string.IsNullOrEmpty(lastname) ? lastname.Substring(0, 1) : "";
+            return $"{firstname} {lastinitial}.";
         }
     }
 }

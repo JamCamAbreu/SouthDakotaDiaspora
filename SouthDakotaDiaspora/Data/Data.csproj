@@ -114,12 +114,14 @@
     <Compile Include="Services\DiscordNotifier.cs" />
     <Compile Include="Services\IActivityData.cs" />
     <Compile Include="Services\IBookData.cs" />
+    <Compile Include="Services\IProjectData.cs" />
     <Compile Include="Services\IShowData.cs" />
     <Compile Include="Services\IGameData.cs" />
     <Compile Include="Services\ITimelineEventData.cs" />
     <Compile Include="Services\SouthDakotaDiasporaDbContext.cs" />
     <Compile Include="Services\SqlActivityData.cs" />
     <Compile Include="Services\SqlBookData.cs" />
+    <Compile Include="Services\SqlProjectData.cs" />
     <Compile Include="Services\SqlShowData.cs" />
     <Compile Include="Services\SqlGameData.cs" />
     <Compile Include="Services\SqlTimelineEventData.cs" />

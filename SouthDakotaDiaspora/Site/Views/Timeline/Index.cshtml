@@ -24,7 +24,7 @@
     </td>
     <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
         @Html.DisplayFor(modelItem => item.Type)
-        @(Html.ActionLink(Html.DisplayFor(modelItem => item.ActivityNameAbbreviated).ToString(), "Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId }, new { }))
+        <a href="@Url.Action("Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId })">@item.ActivityNameAbbreviated</a>
     </td>
     <td title="@Html.DisplayFor(modelItem => item.Title)">
         @Html.DisplayFor(modelItem => item.TitleAbbreviated)
@@ -61,7 +61,7 @@
     </td>
     <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
         @Html.DisplayFor(modelItem => item.Type)
-        @(Html.ActionLink(Html.DisplayFor(modelItem => item.ActivityNameAbbreviated).ToString(), "Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId }, new { }))
+        <a href="@Url.Action("Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId })">@item.ActivityNameAbbreviated</a>
     </td>
     <td title="@Html.DisplayFor(modelItem => item.Title)">
         @Html.DisplayFor(modelItem => item.TitleAbbreviated)
@@ -95,7 +95,7 @@
     </td>
     <td title="@Html.DisplayFor(modelItem => item.ActivityName)">
         @Html.DisplayFor(modelItem => item.Type)
-        @(Html.ActionLink(Html.DisplayFor(modelItem => item.ActivityNameAbbreviated).ToString(), "Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId }, new { }))
+        <a href="@Url.Action("Edit", item.ActivityType + "s", new { @id = item.ActivityReferenceId })">@item.ActivityNameAbbreviated</a>
     </td>
     <td title="@Html.DisplayFor(modelItem => item.Title)">
         @Html.DisplayFor(modelItem => item.TitleAbbreviated)

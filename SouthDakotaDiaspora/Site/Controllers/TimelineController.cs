@@ -14,14 +14,16 @@ namespace Site.Controllers
         IGameData games;
         IShowData shows;
         IBookData books;
+        IProjectData projects;
         IActivityData activities;
         ITimelineEventData timelineevents;
-        public TimelineController(ITimelineEventData timelineevents, IGameData games, IShowData shows, IBookData books, IActivityData activities)
+        public TimelineController(ITimelineEventData timelineevents, IGameData games, IShowData shows, IBookData books, IProjectData projects, IActivityData activities)
         {
             this.timelineevents = timelineevents;
             this.games = games;
             this.shows = shows;
             this.books = books;
+            this.projects = projects;
             this.activities = activities;
         }
 
@@ -72,7 +74,7 @@ namespace Site.Controllers
             List<Activity> games = this.games.GetAll().Cast<Activity>().ToList();
             List<Activity> shows = this.shows.GetAll().Cast<Activity>().ToList();
             List<Activity> books = this.books.GetAll().Cast<Activity>().ToList();
-            List<Activity> projects = new List<Activity>();
+            List<Activity> projects = this.projects.GetAll().Cast<Activity>().ToList();
             model.GameSelection = TimelineCreateViewModel.ListToDropdown(games);
             model.ShowSelection = TimelineCreateViewModel.ListToDropdown(shows);
             model.BookSelection = TimelineCreateViewModel.ListToDropdown(books);

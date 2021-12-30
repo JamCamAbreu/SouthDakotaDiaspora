@@ -53,9 +53,9 @@
                     }
 
                     <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Games" ? "class = header-selected" : "")>@Html.ActionLink("Games 🎲", "Index", "Games")</li>
-                    <li>@Html.ActionLink("Shows/Videos 📺", "Index", "Shows")</li>
-                    <li>@Html.ActionLink("Books/Articles 📚", "Index", "Books")</li>
-                    <li>@Html.ActionLink("Projects 🧪", "Index", "Projects")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Shows" ? "class = header-selected" : "")>@Html.ActionLink("Shows 🎲", "Index", "Shows")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Books" ? "class = header-selected" : "")>@Html.ActionLink("Books 🎲", "Index", "Books")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Projects" ? "class = header-selected" : "")>@Html.ActionLink("Projects 🎲", "Index", "Projects")</li>
                 </ul>
             </div>
         </div>

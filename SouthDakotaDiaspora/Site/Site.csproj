@@ -261,6 +261,7 @@
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\GamesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ShowsController.cs" />
     <Compile Include="Controllers\TimelineController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
@@ -270,6 +271,8 @@
     <Compile Include="Helpers\GlobalMethods.cs" />
     <Compile Include="Models\Books\BookInfo.cs" />
     <Compile Include="Models\Books\BooksIndexViewModel.cs" />
+    <Compile Include="Models\Projects\ProjectIndexViewModel.cs" />
+    <Compile Include="Models\Projects\ProjectInfo.cs" />
     <Compile Include="Models\Timeline\TimelineCreateViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineIndexViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineEventInfo.cs" />
@@ -403,6 +406,10 @@
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Delete.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\Projects\Edit.cshtml" />
+    <Content Include="Views\Projects\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

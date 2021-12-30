@@ -44,25 +44,22 @@ namespace Site
                 .InstancePerLifetimeScope();
             #endregion
 
-            #region Game Data
+            #region Activities
             builder.RegisterType<SqlGameData>()
                 .As<IGameData>()
                 .InstancePerRequest();
-            #endregion
 
-            #region Show Data
             builder.RegisterType<SqlShowData>()
                 .As<IShowData>()
                 .InstancePerRequest();
-            #endregion
 
-            #region Book Data
             builder.RegisterType<SqlBookData>()
                 .As<IBookData>()
                 .InstancePerRequest();
-            #endregion
 
-            #region Project Data
+            builder.RegisterType<SqlProjectData>()
+                .As<IProjectData>()
+                .InstancePerRequest();
             #endregion
 
             // Build the container:
