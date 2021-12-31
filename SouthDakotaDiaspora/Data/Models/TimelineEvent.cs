@@ -9,6 +9,18 @@ namespace Data.Models
 {
     public class TimelineEvent
     {
+        public TimelineEvent() 
+        {
+            this.Users = new List<User>();
+            this.Comments = new List<Comment>();
+        }
+        public TimelineEvent(User host)
+        {
+            this.Users = new List<User>() { host };
+            this.Host = host;
+            this.Comments = new List<Comment>();
+        }
+
         [Key]
         public int TimelineEventId { get; set; }
         [MaxLength(128)]
@@ -16,19 +28,15 @@ namespace Data.Models
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }
         [DataType(DataType.DateTime)]
-        //[DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Time")]
         public DateTime StartTime { get; set; }
         [DataType(DataType.DateTime)]
-        //[DisplayFormat(DataFormatString = "{0:ddd (MM/dd/yyyy) h:mm tt}", ApplyFormatInEditMode = true)]
         [Display(Name = "End Time")]
         public DateTime EndTime { get; set; }
         public User Host { get; set; }
         [Display(Name = "Users Going")]
-        public List<User> UsersGoing { get; set; }
-        [Display(Name = "Users Maybe")]
-        public List<User> UsersMaybe { get; set; }
-        public List<Comment> Comments { get; set; }
+        public ICollection<User> Users { get; set; }
+        public ICollection<Comment> Comments { get; set; }
         public bool SentNotificationStarting { get; set; }
         public bool SentNotificationSoon { get; set; }
     }

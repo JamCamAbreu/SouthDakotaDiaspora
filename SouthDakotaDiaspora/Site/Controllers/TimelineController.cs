@@ -16,14 +16,16 @@ namespace Site.Controllers
         IBookData books;
         IProjectData projects;
         IActivityData activities;
+        IUserData users;
         ITimelineEventData timelineevents;
-        public TimelineController(ITimelineEventData timelineevents, IGameData games, IShowData shows, IBookData books, IProjectData projects, IActivityData activities)
+        public TimelineController(ITimelineEventData timelineevents, IGameData games, IShowData shows, IBookData books, IProjectData projects, IUserData users, IActivityData activities)
         {
             this.timelineevents = timelineevents;
             this.games = games;
             this.shows = shows;
             this.books = books;
             this.projects = projects;
+            this.users = users;
             this.activities = activities;
         }
 
@@ -85,7 +87,6 @@ namespace Site.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            
             if (!Helpers.GlobalMethods.IsLoggedIn(this.Session))
             {
                 return RedirectToAction("Login", "Home", new { ra = "Create", rc = "Timeline" });
@@ -122,8 +123,18 @@ namespace Site.Controllers
             {
                 TimelineCreateViewModel model = new TimelineCreateViewModel(new TimelineEvent());
                 this.PopulateActivities(model);
-
                 return View(model);
+            }
+
+            int userid;
+            if (this.Session["UserID"] != null && int.TryParse(this.Session["UserID"].ToString(), out userid))
+            {
+                User curLoggedIn = this.users.Get(userid);
+                if (curLoggedIn != null)
+                {
+                    tevent.Host = curLoggedIn;
+                    tevent.Users.Add(curLoggedIn);
+                }
             }
 
             timelineevents.Add(tevent);
@@ -131,6 +142,24 @@ namespace Site.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult JoinEvent(int id)
+        {
+            TimelineEvent existing = timelineevents.Get(id);
+            int userid;
+            if (existing != null && this.Request.QueryString["userid"] != null && int.TryParse(this.Request.QueryString["userid"].ToString(), out userid))
+            {
+
+                User existinguser = users.Get(userid);
+                if (existinguser != null)
+                {
+                    this.timelineevents.AddUserToEvent(existing, existinguser);
+                    Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Successfully joined event");
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

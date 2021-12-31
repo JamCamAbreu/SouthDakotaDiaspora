@@ -13,6 +13,17 @@ namespace Data.Services
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Properties<DateTime>().Configure(c => c.HasColumnType("datetime2"));
+
+            modelBuilder.Entity<TimelineEvent>()
+                .HasMany(t => t.Users)
+                .WithMany(u => u.TimelineEvents)
+                .Map(tu =>
+                {
+                    tu.MapLeftKey("TimelineEventRefId");
+                    tu.MapRightKey("UserRefId");
+                    tu.ToTable("TimelineEventUser");
+                });
+
         }
 
         public DbSet<Activity> Activities { get; set; }

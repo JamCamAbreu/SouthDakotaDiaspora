@@ -12,10 +12,10 @@
 <table class="timeline-table table" style="text-align: center;">
 
     @* HEADERS *@
-    <tr class="timeline-head"><td><h3></h3></td><td>Activity</td><td>Description</td><td>Duration</td><td>Platform</td><td>Attending</td><td></td></tr>
+    <tr class="timeline-head"><td><h3></h3></td><td>Activity</td><td>Description</td><td>Duration</td><td>Platform</td><td>Host</td><td>Other's Attending</td><td></td></tr>
 
     <!-- Past Events -->
-    <tr class="timeline-prev"><td><h3 class="timeline-category-small">@("<--") Previous</h3></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-prev"><td><h3 class="timeline-category-small">@("<--") Previous</h3></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.PastEvents)
     {
 <tr class="timeline-prev clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.TimelineEventId})'">
@@ -36,6 +36,9 @@
         @Html.DisplayFor(modelItem => item.PlatformAbbreviation)
     </td>
     <td>
+        @Html.DisplayFor(modelItem => item.Host)
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => item.Attending)
     </td>
     <td>
@@ -52,7 +55,7 @@
     }
 
     <!-- Today Events -->
-    <tr class="timeline-today"><td><span class="timeline-category-large">~ Now/Soon ~</span></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-today"><td><span class="timeline-category-large">~ Now/Soon ~</span></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.TodayEvents)
     {
 <tr class="timeline-today clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.TimelineEventId})'">
@@ -73,7 +76,18 @@
         @Html.DisplayFor(modelItem => item.PlatformAbbreviation)
     </td>
     <td>
+        @Html.DisplayFor(modelItem => item.Host)
+    </td>
+    <td>
         @Html.DisplayFor(modelItem => item.Attending)
+        @if (Site.Helpers.GlobalMethods.GetCurrentUserId(this.Session) != null && item.Host != null)
+        {
+            int? userid = Site.Helpers.GlobalMethods.GetCurrentUserId(this.Session);
+            if (item.HostId != userid && !item.AttendingIds.Exists(i => i == (int)userid))
+            {
+                @Html.ActionLink("Join!", "JoinEvent", new { @id = item.TimelineEventId, userid = userid })
+            }
+        }
     </td>
     <td>
         @using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))
@@ -86,7 +100,7 @@
     }
 
     <!-- Future Events -->
-    <tr class="timeline-future"><td><h3 class="timeline-category-small">Later --></h3></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr class="timeline-future"><td><h3 class="timeline-category-small">Later --></h3></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
     @foreach (var item in Model.FutureEvents)
     {
 <tr class="timeline-future clickable-row" onclick="location.href ='@Url.Action("Edit", new { id = item.TimelineEventId})'">
@@ -105,6 +119,9 @@
     </td>
     <td title="@Html.DisplayFor(modelItem => item.Platform)">
         @Html.DisplayFor(modelItem => item.PlatformAbbreviation)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Host)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Attending)

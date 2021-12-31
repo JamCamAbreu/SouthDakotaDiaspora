@@ -1,6 +1,7 @@
 ﻿using Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,42 +34,55 @@ namespace Data.Services
 
         public TimelineEvent Get(int id)
         {
-            return database.TimelineEvents.Find(id);
+            return database.TimelineEvents
+                .Where(t => t.TimelineEventId == id)
+                .Include(t => t.Users)
+                .FirstOrDefault();
         }
 
         public IEnumerable<TimelineEvent> GetAll()
         {
-            return from t in database.TimelineEvents
-                   orderby t.StartTime
-                   select t;
+            return database.TimelineEvents
+                .Include(t => t.Users)
+                .ToList();
         }
 
         public IEnumerable<TimelineEvent> GetPendingNotifySoonEvents()
         {
-            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            List<TimelineEvent> items = database.TimelineEvents
+                .Include(t => t.Users)
+                .ToList();
             return items.Where(tevent => tevent.StartTime <= DateTime.Now.AddHours(1) && tevent.EndTime > DateTime.Now && tevent.SentNotificationSoon == false);
         }
         public IEnumerable<TimelineEvent> GetPendingNotifyStartingEvents()
         {
-            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            List<TimelineEvent> items = database.TimelineEvents
+                .Include(t => t.Users)
+                .ToList();
             return items.Where(tevent => tevent.StartTime <= DateTime.Now && tevent.EndTime > DateTime.Now && tevent.SentNotificationStarting == false);
         }
 
         public IEnumerable<TimelineEvent> GetBeforeToday()
         {
-            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            List<TimelineEvent> items = database.TimelineEvents
+                .Include(t => t.Users)
+                .ToList();
             return items.Where(tevent => tevent.EndTime < DateTime.Now).OrderBy(tevent => tevent.StartTime);
         }
         public IEnumerable<TimelineEvent> GetToday()
         {
             DateTime endofday = DateTime.Now.Date.AddDays(1);
-            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            List<TimelineEvent> items = database.TimelineEvents
+                .Include(t => t.Users)
+                .ToList();
             return items.Where(tevent => tevent.EndTime >= DateTime.Now && tevent.EndTime < endofday).OrderBy(tevent => tevent.StartTime);
         }
         public IEnumerable<TimelineEvent> GetAfterToday()
         {
             DateTime endofday = DateTime.Now.Date.AddDays(1);
-            List<TimelineEvent> items = database.TimelineEvents.ToList();
+            List<TimelineEvent> items = database.TimelineEvents
+                .Include(t => t.Users)
+                .ToList();
             return items.Where(tevent => tevent.StartTime > endofday).OrderBy(tevent => tevent.StartTime);
         }
         public void Update(TimelineEvent timelineEvent)
@@ -77,11 +91,21 @@ namespace Data.Services
             TimelineEvent existing = this.Get(timelineEvent.TimelineEventId);
             if (existing != null)
             {
-                existing.Host = timelineEvent.Host;
                 existing.Title = timelineEvent.Title;
                 existing.StartTime = timelineEvent.StartTime;
                 existing.EndTime = timelineEvent.EndTime;
-                existing.ActivityId = timelineEvent.ActivityId;
+                database.SaveChanges();
+            }
+        }
+
+        public void AddUserToEvent(TimelineEvent tevent, User user)
+        {
+            if (tevent == null || user == null) return;
+            TimelineEvent existing = this.Get(tevent.TimelineEventId);
+            if (existing != null)
+            {
+                if (existing.Users == null) { existing.Users = new List<User>(); }
+                existing.Users.Add(user);
                 database.SaveChanges();
             }
         }

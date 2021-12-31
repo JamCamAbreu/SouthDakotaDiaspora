@@ -14,6 +14,18 @@ namespace Site.Helpers
             if (session == null || session["UserID"] == null) return false;
             return true;
         }
+        public static int? GetCurrentUserId(HttpSessionStateBase session)
+        {
+            if(IsLoggedIn(session) && session["UserID"] != null)
+            {
+                int userid;
+                if (int.TryParse(session["UserID"].ToString(), out userid))
+                {
+                    return userid;
+                }
+            }
+            return null;
+        }
         public static void UpdateSession(HttpSessionStateBase session, User user)
         {
             if (user == null || session == null)

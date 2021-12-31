@@ -9,6 +9,10 @@ namespace Data.Models
 {
     public class User
     {
+        public User()
+        {
+            this.TimelineEvents = new List<TimelineEvent>();
+        }
         public int UserId { get; set; }
         [MaxLength(32)]
         [Display(Name = "First Name")]
@@ -33,5 +37,7 @@ namespace Data.Models
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Last Login")]
         public DateTime? LastLogin { get; set; }
+        [Display(Name = "Events Attending")]
+        public ICollection<TimelineEvent> TimelineEvents { get; set; }
     }
 }

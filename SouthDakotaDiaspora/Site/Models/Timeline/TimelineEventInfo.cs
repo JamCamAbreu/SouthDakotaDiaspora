@@ -23,6 +23,9 @@ namespace Site.Models.Timeline
         public string TitleAbbreviated { get; set; }
         public string Type { get; set; }
         public string Attending { get; set; }
+        public List<int> AttendingIds { get; set; }
+        public string Host { get; set; }
+        public int? HostId { get; set; }
         public int TimelineEventId { get; set; }
         public TimelineEventInfo () { }
         public TimelineEventInfo(TimelineEvent tevent, TimeZoneInfo localtimezone, Activity activityinfo)
@@ -50,10 +53,28 @@ namespace Site.Models.Timeline
                 this.ActivityType = activityinfo.ActivityType;
             }
 
-            if (tevent.UsersGoing != null && tevent.UsersGoing.Count > 0)
+            if (tevent.Host != null)
             {
-                string userFirstNames = string.Join(", ", tevent.UsersGoing.Select(u => u.FirstName));
+                this.Host = GlobalMethods.AbbreviateName(tevent.Host.FirstName, tevent.Host.LastName);
+                this.HostId = tevent.Host.UserId;
+            }
+
+            this.AttendingIds = new List<int>();
+            if (tevent.Users != null && tevent.Users.Count > 0)
+            {
+                List<User> otherusers = tevent.Users.ToList();
+                if (tevent.Host != null)
+                {
+                    otherusers.Remove(tevent.Host);
+                }
+
+                string userFirstNames = string.Join(", ", otherusers.Select(u => GlobalMethods.AbbreviateName(u.FirstName, u.LastName)));
                 this.Attending = userFirstNames;
+
+                foreach (User user in tevent.Users)
+                {
+                    this.AttendingIds.Add(user.UserId);
+                }
             }
 
             this.Type = GetTypeSymbol(activityinfo.ActivityType);
