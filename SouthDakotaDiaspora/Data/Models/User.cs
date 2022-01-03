@@ -39,5 +39,7 @@ namespace Data.Models
         public DateTime? LastLogin { get; set; }
         [Display(Name = "Events Attending")]
         public ICollection<TimelineEvent> TimelineEvents { get; set; }
+        [Display(Name = "Discord ID (full, numeric only)")]
+        public string DiscordId { get; set; }
     }
 }

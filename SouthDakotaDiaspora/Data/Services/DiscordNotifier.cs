@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Linq.Expressions;
 using Data.Models;
 using Discord.Webhook;
+using System.Configuration;
 
 namespace Data.Services
 {
@@ -56,7 +57,7 @@ namespace Data.Services
             };
             random = new Random();
 
-            this.client = new DiscordWebhookClient("https://discord.com/api/webhooks/926261703400915034/H1U_VxE3DMH1LGqj2ur4jUfMpWE_VXVAu-OaTf-L0OZBiolsawZ8_hEsAROIZnK-Y7wD");
+            this.client = new DiscordWebhookClient(ConfigurationManager.AppSettings["DiscordWebHook"]);
         }
 
         ~DiscordNotifier()
@@ -69,25 +70,22 @@ namespace Data.Services
             TimelineEvent[] notifySoonEvents = this.database.GetPendingNotifySoonEvents().ToArray();
             foreach (TimelineEvent tevent in notifySoonEvents)
             {
-                
-                string message = $"{tevent.Title} hosted by {AbbreviateName(tevent.Host.FirstName, tevent.Host.LastName)} will begin within the hour. ({tevent.StartTime.ToShortTimeString()} MST)";
+                await this.client.SendMessageAsync("Behold!");
+
+                string message = $"{GetEventMessage(tevent)} will begin within the hour. ({tevent.StartTime.ToShortTimeString()} MST)\n"
                 await this.client.SendMessageAsync(message);
 
-                if (tevent.Users != null && tevent.Users.Count > 0)
-                {
-                    string personification = this.personifications[random.Next(0, this.personifications.Length)];
-                    message = $"Other {personification} in attendance: ";
-                    message += string.Join(", ", tevent.Users.Select(u => AbbreviateName(u.FirstName, u.LastName)));
-                    await this.client.SendMessageAsync(message);
-                }
+                await SendOthersIncluded(tevent);
+
+                message = $"Check it out here: http://abreu.wiki/Timeline";
+                await this.client.SendMessageAsync(message);
 
                 string hook = this.hookMessages[random.Next(0, this.hookMessages.Length)];
                 await this.client.SendMessageAsync(hook);
 
-                // Todo: When I get a permanent URL, add a "find more details here" link that uses the tevent's id. 
-
                 tevent.SentNotificationSoon = true;
                 this.database.Update(tevent);
+
             }
         }
 
@@ -96,22 +94,36 @@ namespace Data.Services
             TimelineEvent[] notifyStartingEvents = this.database.GetPendingNotifyStartingEvents().ToArray();
             foreach (TimelineEvent tevent in notifyStartingEvents)
             {
-                string hook = this.hookMessages[random.Next(0, this.hookMessages.Length)];
-                string message = $"{tevent.Title} hosted by {AbbreviateName(tevent.Host.FirstName, tevent.Host.LastName)} has begun! At last!";
+                await this.client.SendMessageAsync("Alas!");
+
+                string message = $"{GetEventMessage(tevent)} has begun! At last!";
                 await this.client.SendMessageAsync(message);
 
-                if (tevent.Users != null && tevent.Users.Count > 0)
-                {
-                    string personification = this.personifications[random.Next(0, this.personifications.Length)];
-                    message = $"Other {personification} in attendance: ";
-                    message += string.Join(", ", tevent.Users.Select(u => AbbreviateName(u.FirstName, u.LastName)));
-                    await this.client.SendMessageAsync(message);
-                }
-
-                // Todo: When I get a permanent URL, add a "find more details here" link that uses the tevent's id. 
+                await SendOthersIncluded(tevent);
 
                 tevent.SentNotificationStarting = true;
                 this.database.Update(tevent);
+            }
+        }
+
+        public string GetEventMessage(TimelineEvent tevent)
+        {
+            string hostcallout = "";
+            if (tevent.Host != null && !string.IsNullOrEmpty(tevent.Host.DiscordId)) { hostcallout = $"(<@{tevent.Host.DiscordId}>)"; }
+            string platform = string.IsNullOrEmpty(tevent.Activity?.Platform.ToString()) ? $"- {tevent.Activity.Platform}" : "";
+            string message = $"{tevent.Title} ({tevent.Activity.Name}{platform})\nHosted by {AbbreviateName(tevent.Host.FirstName, tevent.Host.LastName)} {hostcallout}";
+            return message;
+        }
+
+        public async Task SendOthersIncluded(TimelineEvent tevent)
+        {
+            if (tevent.Host != null && tevent.Users != null && tevent.Users.Count > 1)
+            {
+                List<User> otherusers = tevent.Users.Except(tevent.Users.Where(u => u.UserId == tevent.Host.UserId)).ToList();
+                string personification = this.personifications[random.Next(0, this.personifications.Length)];
+                string message = $"Other {personification} in attendance: ";
+                message += string.Join(", ", otherusers.Select(u => AbbreviateName(u.FirstName, u.LastName) + (!string.IsNullOrEmpty(u.DiscordId) ? $" (<@{u.DiscordId}>)" : "")));
+                await this.client.SendMessageAsync(message);
             }
         }
 

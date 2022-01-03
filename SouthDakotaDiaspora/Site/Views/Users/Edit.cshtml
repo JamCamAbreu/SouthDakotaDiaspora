@@ -60,6 +60,14 @@
         </div>
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.DiscordId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.DiscordId, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.DiscordId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
     @if (Session["Role"] != null && Session["Role"].ToString() == Data.Models.UserRoleType.Admin.ToString())
     {
         <div class="form-group">
@@ -81,9 +89,9 @@
 
     <br />
     <div class="form-group">
-        <label class="control-label col-md-2">Update Password? <input name="UpdatePassword" type="checkbox" id="updatepasswordcheckbox"/></label>
+        <label class="control-label col-md-2">Update Password? <input name="UpdatePassword" type="checkbox" id="updatepasswordcheckbox" /></label>
         <div class="col-md-10">
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @disabled = true, @id="passwordfield" } })
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @disabled = true, @id = "passwordfield" } })
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
         </div>
     </div>

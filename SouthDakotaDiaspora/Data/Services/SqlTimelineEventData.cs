@@ -37,6 +37,7 @@ namespace Data.Services
             return database.TimelineEvents
                 .Where(t => t.TimelineEventId == id)
                 .Include(t => t.Users)
+                .Include(t => t.Activity)
                 .FirstOrDefault();
         }
 
@@ -44,6 +45,7 @@ namespace Data.Services
         {
             return database.TimelineEvents
                 .Include(t => t.Users)
+                .Include(t => t.Activity)
                 .ToList();
         }
 
@@ -51,6 +53,7 @@ namespace Data.Services
         {
             List<TimelineEvent> items = database.TimelineEvents
                 .Include(t => t.Users)
+                .Include(t => t.Activity)
                 .ToList();
             return items.Where(tevent => tevent.StartTime <= DateTime.Now.AddHours(1) && tevent.EndTime > DateTime.Now && tevent.SentNotificationSoon == false);
         }
@@ -58,6 +61,7 @@ namespace Data.Services
         {
             List<TimelineEvent> items = database.TimelineEvents
                 .Include(t => t.Users)
+                .Include(t => t.Activity)
                 .ToList();
             return items.Where(tevent => tevent.StartTime <= DateTime.Now && tevent.EndTime > DateTime.Now && tevent.SentNotificationStarting == false);
         }
@@ -66,6 +70,7 @@ namespace Data.Services
         {
             List<TimelineEvent> items = database.TimelineEvents
                 .Include(t => t.Users)
+                .Include(t => t.Activity)
                 .ToList();
             return items.Where(tevent => tevent.EndTime < DateTime.Now).OrderBy(tevent => tevent.StartTime);
         }
@@ -74,6 +79,7 @@ namespace Data.Services
             DateTime endofday = DateTime.Now.Date.AddDays(1);
             List<TimelineEvent> items = database.TimelineEvents
                 .Include(t => t.Users)
+                .Include(t => t.Activity)
                 .ToList();
             return items.Where(tevent => tevent.EndTime >= DateTime.Now && tevent.EndTime < endofday).OrderBy(tevent => tevent.StartTime);
         }
@@ -82,6 +88,7 @@ namespace Data.Services
             DateTime endofday = DateTime.Now.Date.AddDays(1);
             List<TimelineEvent> items = database.TimelineEvents
                 .Include(t => t.Users)
+                .Include(t => t.Activity)
                 .ToList();
             return items.Where(tevent => tevent.StartTime > endofday).OrderBy(tevent => tevent.StartTime);
         }

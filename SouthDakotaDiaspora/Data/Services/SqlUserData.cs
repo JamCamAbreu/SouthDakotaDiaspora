@@ -68,6 +68,7 @@ namespace Data.Services
                 existing.LastName = user.LastName;
                 existing.UserRole = user.UserRole;
                 existing.TimeZonePreference = user.TimeZonePreference;
+                existing.DiscordId = user.DiscordId;
                 database.SaveChanges();
             }
         }
