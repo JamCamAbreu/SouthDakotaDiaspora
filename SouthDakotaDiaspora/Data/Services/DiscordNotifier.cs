@@ -72,7 +72,7 @@ namespace Data.Services
             {
                 await this.client.SendMessageAsync("Behold!");
 
-                string message = $"{GetEventMessage(tevent)} will begin within the hour. ({tevent.StartTime.ToShortTimeString()} MST)\n"
+                string message = $"{GetEventMessage(tevent)} will begin within the hour. ({tevent.StartTime.ToShortTimeString()} MST)\n";
                 await this.client.SendMessageAsync(message);
 
                 await SendOthersIncluded(tevent);

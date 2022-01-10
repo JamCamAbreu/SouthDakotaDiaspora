@@ -6,17 +6,20 @@
     <title>@ViewBag.Title - South Dakota Diaspora</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body class="CaroniFont">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top navbar-expand-lg">
+        <button type="button" class="nav-link navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
         <div class="container">
 
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
+
                 <div>
                     <a href="@Url.Action("Index", "Home", new { area = ""})" class="navbar-brand @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "header-selected" : "")">Home</a>
                     @if (!Site.Helpers.GlobalMethods.IsLoggedIn(this.Session))
@@ -39,9 +42,9 @@
                     }
                 </div>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Timeline" ? "class = header-selected" : "")>@Html.ActionLink("Timeline ⌚", "Index", "Timeline")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Timeline" ? "class = header-selected nav-item" : "class = nav-item")>@Html.ActionLink("Timeline ⌚", "Index", "Timeline")</li>
 
                     @if (Site.Helpers.GlobalMethods.IsOnMyUserDetailsPage(this.Session, this.ViewContext))
                     {
@@ -49,13 +52,13 @@
                     }
                     else
                     {
-                        <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Users" ? "class = header-selected" : "")>@Html.ActionLink("Users 🧙‍", "Index", "Users")</li>
+                        <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Users" ? "class = header-selected nav-item" : "class = nav-item")>@Html.ActionLink("Users 🧙‍", "Index", "Users")</li>
                     }
 
-                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Games" ? "class = header-selected" : "")>@Html.ActionLink("Games 🎲", "Index", "Games")</li>
-                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Shows" ? "class = header-selected" : "")>@Html.ActionLink("Shows 📺", "Index", "Shows")</li>
-                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Books" ? "class = header-selected" : "")>@Html.ActionLink("Books 📚", "Index", "Books")</li>
-                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Projects" ? "class = header-selected" : "")>@Html.ActionLink("Projects 🧪", "Index", "Projects")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Games" ? "class = header-selected nav-item" : "class = nav-item")>@Html.ActionLink("Games 🎲", "Index", "Games")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Shows" ? "class = header-selected nav-item" : "class = nav-item")>@Html.ActionLink("Shows 📺", "Index", "Shows")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Books" ? "class = header-selected nav-item" : "class = nav-item")>@Html.ActionLink("Books 📚", "Index", "Books")</li>
+                    <li @(ViewContext.RouteData.Values["controller"]?.ToString() == "Projects" ? "class = header-selected nav-item" : "class = nav-item")>@Html.ActionLink("Projects 🧪", "Index", "Projects")</li>
                 </ul>
             </div>
         </div>
@@ -70,9 +73,6 @@
     <div class="container body-content">
         @RenderBody()
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @*@Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>
