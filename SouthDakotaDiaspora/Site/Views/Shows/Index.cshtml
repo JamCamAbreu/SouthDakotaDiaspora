@@ -1,10 +1,10 @@
-﻿@model IEnumerable<Data.Models.Show>
+﻿@model IEnumerable<Site.Models.Shows.ShowInfo>
 
 @{
-    ViewBag.Title = "Shows";
+    ViewBag.Title = "Shows & Videos";
 }
 
-<h2>Shows</h2>
+<h2>Shows & Videos</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -21,6 +21,9 @@
             @Html.DisplayNameFor(model => model.Platform)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Url)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.ReleaseDate)
         </th>
         <th></th>
@@ -28,23 +31,67 @@
 
     @foreach (var item in Model)
     {
-        <tr class="clickable-row" onclick="location.href ='@Url.Action("Details", new { id = item.ActivityId})'">
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Platform)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", new { id = item.ActivityId })
-            </td>
-        </tr>
+<tr class="clickable-row" onclick="clickrow('@Url.Action("Details", new { id = item.ActivityId})');">
+    <td title="@Html.DisplayFor(modelItem => item.Name)">
+        @Html.DisplayFor(modelItem => item.NameAbbreviated)
+    </td>
+    <td title="@Html.DisplayFor(modelItem => item.Description)">
+        @Html.DisplayFor(modelItem => item.DescriptionAbbreviated)
+    </td>
+    <td title="@Html.DisplayFor(modelItem => item.Platform)">
+        @Html.DisplayFor(modelItem => item.PlatformAbbreviated)
+    </td>
+    <td title="@Html.DisplayFor(modelItem => item.Url)">
+        @if (item.UrlWellFormatted)
+        {
+            <a class="except" onclick="followLink(event, '@(item.Url)')">@Html.DisplayFor(modelItem => item.UrlAbbreviated)</a>
+        }
+        else
+        {
+            @Html.DisplayFor(modelItem => item.UrlAbbreviated)
+        }
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ReleaseDate)
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "Delete", new { id = item.ActivityId })
+    </td>
+    <td>
+        @Html.ActionLink("Delete", "Delete", new { id = item.ActivityId })
+    </td>
+</tr>
     }
 
 </table>
+
+
+
+
+@* Clicking on URLs*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <script type="text/javascript">
+        var allowClickRow;
+
+        $(document).ready(function () {
+            allowClickRow = true;
+        });
+
+        function followLink(event, url) {
+            window.open(url, '_blank');
+            event.preventDefault();
+            allowClickRow = false;
+        }
+
+        function clickrow(url) {
+            if (allowClickRow) {
+                location.href = url;
+            }
+            else {
+                allowClickRow = true;
+            }
+        }
+    </script>
+}

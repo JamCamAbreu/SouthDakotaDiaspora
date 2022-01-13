@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using Data.Services;
+using Site.Models.Shows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,13 @@ namespace Site.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = db.GetAll();
-            return View(model);
+            IEnumerable<Show> rawshows = db.GetAll();
+            List<ShowInfo> shows = new List<ShowInfo>();
+            foreach (Show rawshow in rawshows)
+            {
+                shows.Add(new ShowInfo(rawshow));
+            }
+            return View(shows);
         }
 
         [HttpGet]

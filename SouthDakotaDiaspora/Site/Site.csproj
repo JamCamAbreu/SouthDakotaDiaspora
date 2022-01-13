@@ -271,8 +271,12 @@
     <Compile Include="Helpers\GlobalMethods.cs" />
     <Compile Include="Models\Books\BookInfo.cs" />
     <Compile Include="Models\Books\BooksIndexViewModel.cs" />
+    <Compile Include="Models\Games\GameInfo.cs" />
+    <Compile Include="Models\Games\GamesIndexViewModel.cs" />
     <Compile Include="Models\Projects\ProjectIndexViewModel.cs" />
     <Compile Include="Models\Projects\ProjectInfo.cs" />
+    <Compile Include="Models\Shows\ShowInfo.cs" />
+    <Compile Include="Models\Shows\ShowsIndexViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineCreateViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineIndexViewModel.cs" />
     <Compile Include="Models\Timeline\TimelineEventInfo.cs" />

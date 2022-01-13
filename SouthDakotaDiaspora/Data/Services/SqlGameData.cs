@@ -38,6 +38,7 @@ namespace Data.Services
             {
                 existing.Name = game.Name;
                 existing.Description = game.Description;
+                existing.WebsiteUrl = game.WebsiteUrl;
                 existing.ReleaseDate = game.ReleaseDate;
                 existing.Platform = game.Platform;
                 database.SaveChanges();

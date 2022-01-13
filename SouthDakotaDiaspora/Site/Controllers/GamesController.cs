@@ -1,5 +1,6 @@
 ﻿using Data.Models;
 using Data.Services;
+using Site.Models.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,13 @@ namespace Site.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var model = db.GetAll();
-            return View(model);
+            IEnumerable<Game> rawgames = db.GetAll();
+            List<GameInfo> games = new List<GameInfo>();
+            foreach (Game rawgame in rawgames)
+            {
+                games.Add(new GameInfo(rawgame));
+            }
+            return View(games);
         }
 
         [HttpGet]
