@@ -5,7 +5,14 @@
 }
 
 <h2>Timeline</h2>
-<h6 style="text-align: center;"><i>(Showing in @Model.TimeZoneName)</i></h6>
+<h6 style="text-align: center;">
+    <i>(Showing in @Model.TimeZoneName)</i>
+    @if (Site.Helpers.GlobalMethods.IsLoggedIn(this.Session))
+    {
+        <i> - <a href="@Url.Action("Edit", "Users", new { area = "", id = Session["UserID"].ToString() })">Update</a></i>
+    }
+
+</h6>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
@@ -87,6 +94,10 @@
             {
                 @Html.ActionLink("Join!", "JoinEvent", new { @id = item.TimelineEventId, userid = userid })
             }
+            else if (item.HostId != userid && item.AttendingIds.Exists(i => i == (int)userid))
+            {
+                @Html.ActionLink("Cancel", "CancelEvent", new { @id = item.TimelineEventId, userid = userid })
+            }
         }
     </td>
     <td>
@@ -125,6 +136,18 @@
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.Attending)
+        @if (Site.Helpers.GlobalMethods.GetCurrentUserId(this.Session) != null && item.Host != null)
+        {
+            int? userid = Site.Helpers.GlobalMethods.GetCurrentUserId(this.Session);
+            if (item.HostId != userid && !item.AttendingIds.Exists(i => i == (int)userid))
+            {
+                @Html.ActionLink("Join!", "JoinEvent", new { @id = item.TimelineEventId, userid = userid })
+            }
+            else if (item.HostId != userid && item.AttendingIds.Exists(i => i == (int)userid))
+            {
+                @Html.ActionLink("Cancel", "CancelEvent", new { @id = item.TimelineEventId, userid = userid })
+            }
+        }
     </td>
     <td>
         @using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))

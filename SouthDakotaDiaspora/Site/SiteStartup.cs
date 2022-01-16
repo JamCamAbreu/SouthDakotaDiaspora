@@ -78,6 +78,7 @@ namespace Site
             #region Discord Notifier
             RecurringJob.AddOrUpdate<DiscordNotifier>(j => j.SendSoonNotifications(), Cron.Minutely);
             RecurringJob.AddOrUpdate<DiscordNotifier>(j => j.SendStartingNotifications(), Cron.Minutely);
+            RecurringJob.AddOrUpdate<DiscordNotifier>(j => j.SendTodaysLineupNotification(), Cron.Daily(8, 30));
             #endregion
         }
 

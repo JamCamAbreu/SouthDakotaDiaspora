@@ -161,6 +161,25 @@ namespace Site.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult CancelEvent(int id)
+        {
+            TimelineEvent existing = timelineevents.Get(id);
+            int userid;
+            if (existing != null && this.Request.QueryString["userid"] != null && int.TryParse(this.Request.QueryString["userid"].ToString(), out userid))
+            {
+
+                User existinguser = users.Get(userid);
+                if (existinguser != null)
+                {
+                    this.timelineevents.RemoveUserFromEvent(existing, existinguser);
+                    Helpers.GlobalMethods.AddConfirmationMessage(this.Session, $"Successfully cancelled event");
+                    return RedirectToAction("Index");
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, FormCollection form)

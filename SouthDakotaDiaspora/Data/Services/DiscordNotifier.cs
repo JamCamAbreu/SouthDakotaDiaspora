@@ -133,5 +133,23 @@ namespace Data.Services
             return $"{firstname} {lastinitial}.";
         }
 
+
+        public async Task SendTodaysLineupNotification()
+        {
+            TimelineEvent[] notifyTodayEvents = this.database.GetToday().ToArray();
+
+            if (notifyTodayEvents.Length > 0)
+            {
+                StringBuilder message = new StringBuilder();
+                message.Append("I now bring to you today's forecast of events:\n```json\n");
+                foreach (TimelineEvent tevent in notifyTodayEvents)
+                {
+                    message.Append($"{tevent.Activity.Name} at {tevent.StartTime.ToShortTimeString()} (MST)\n");
+                }
+                message.Append("\n```\nGandalf thinks it unwise to use the Palantír...but Gandalf is a fool!");
+                await this.client.SendMessageAsync(message.ToString());
+            }
+        }
+
     }
 }

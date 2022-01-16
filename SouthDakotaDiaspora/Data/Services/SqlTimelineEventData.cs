@@ -116,5 +116,19 @@ namespace Data.Services
                 database.SaveChanges();
             }
         }
+        public void RemoveUserFromEvent(TimelineEvent tevent, User user)
+        {
+            if (tevent == null || user == null) return;
+            TimelineEvent existing = this.Get(tevent.TimelineEventId);
+            if (existing != null)
+            {
+                if (existing.Users == null) { return; }
+                if (existing.Users.Contains(user))
+                {
+                    existing.Users.Remove(user);
+                }
+                database.SaveChanges();
+            }
+        }
     }
 }
