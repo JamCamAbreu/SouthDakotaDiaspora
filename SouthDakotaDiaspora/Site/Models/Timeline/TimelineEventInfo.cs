@@ -35,7 +35,7 @@ namespace Site.Models.Timeline
             DateTime localizedStartTime = TimeZoneInfo.ConvertTime(tevent.StartTime, localtimezone);
             DateTime localizedEndTime = TimeZoneInfo.ConvertTime(tevent.EndTime, localtimezone);
             this.StartTime = localizedStartTime;
-            this.StartTimeDisplay = this.CleanStartTime(localizedStartTime, localizedEndTime);
+            this.StartTimeDisplay = this.CleanStartTime(localizedStartTime, localizedEndTime, localtimezone);
 
             this.Title = tevent.Title;
             this.TitleAbbreviated = GlobalMethods.Abbreviate(tevent.Title, GlobalMethods.MAX_CHARACTERS_MEDIUM);
@@ -104,12 +104,15 @@ namespace Site.Models.Timeline
                 return "?";
             }
         }
-        protected string CleanStartTime(DateTime starttime, DateTime endtime)
+        protected string CleanStartTime(DateTime starttime, DateTime endtime, TimeZoneInfo localTimeZone)
         {
             // Future
-            if (starttime >= DateTime.Now)
+
+            DateTime nowLocalized = TimeZoneInfo.ConvertTime(DateTime.Now, localTimeZone);
+
+            if (starttime >= nowLocalized)
             {
-                TimeSpan timeuntil = starttime - DateTime.Now;
+                TimeSpan timeuntil = starttime - nowLocalized;
                 if (timeuntil.TotalMinutes < 5)
                 {
                     return $"Starting now! Hop on discord!";
@@ -135,10 +138,10 @@ namespace Site.Models.Timeline
             // Past
             else
             {
-                TimeSpan timeago = DateTime.Now - starttime;
+                TimeSpan timeago = nowLocalized - starttime;
 
                 // Event still going on
-                if (endtime > DateTime.Now)
+                if (endtime > nowLocalized)
                 {
                     return $"started {(int)Math.Round(timeago.TotalMinutes)} minutes ago";
                 }

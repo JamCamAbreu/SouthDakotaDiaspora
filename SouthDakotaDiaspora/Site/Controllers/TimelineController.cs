@@ -18,7 +18,8 @@ namespace Site.Controllers
         IActivityData activities;
         IUserData users;
         ITimelineEventData timelineevents;
-        public TimelineController(ITimelineEventData timelineevents, IGameData games, IShowData shows, IBookData books, IProjectData projects, IUserData users, IActivityData activities)
+        DiscordNotifier discordNotifier;
+        public TimelineController(ITimelineEventData timelineevents, IGameData games, IShowData shows, IBookData books, IProjectData projects, IUserData users, IActivityData activities, DiscordNotifier notifier)
         {
             this.timelineevents = timelineevents;
             this.games = games;
@@ -27,6 +28,7 @@ namespace Site.Controllers
             this.projects = projects;
             this.users = users;
             this.activities = activities;
+            this.discordNotifier = notifier;
         }
 
         [HttpGet]
@@ -118,6 +120,10 @@ namespace Site.Controllers
             {
                 ModelState.AddModelError("", "Could not locate the activity in the database");
             }
+            else
+            {
+                tevent.Activity = existing;
+            }
 
             if (!ModelState.IsValid)
             {
@@ -135,6 +141,20 @@ namespace Site.Controllers
                     tevent.Host = curLoggedIn;
                     tevent.Users.Add(curLoggedIn);
                 }
+            }
+
+            if (!string.IsNullOrEmpty(form["NotifyCreated"]))
+            {
+                _ = this.discordNotifier.SendCreatedEvent(tevent);
+            }
+
+            if (string.IsNullOrEmpty(form["NotifyOneHour"]))
+            {
+                tevent.SentNotificationSoon = true; // this will prevent sending a message
+            }
+            if (string.IsNullOrEmpty(form["NotifyStarting"]))
+            {
+                tevent.SentNotificationStarting = true; // this will prevent sending a message
             }
 
             timelineevents.Add(tevent);

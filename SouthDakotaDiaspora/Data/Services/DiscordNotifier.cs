@@ -151,5 +151,19 @@ namespace Data.Services
             }
         }
 
+        public async Task SendCreatedEvent(TimelineEvent tevent)
+        {
+            if (tevent == null || tevent.Activity == null || tevent.Host == null)
+            {
+                return;
+            }
+            StringBuilder message = new StringBuilder();
+            message.Append("Prithee, listen well!\n");
+            message.Append($"{tevent.Activity.Name} - ({tevent.Title}) hosted by {tevent.Host.FirstName} will begin on {tevent.StartTime.ToShortDateString()} {tevent.StartTime.ToShortTimeString()} (MST)\n");
+
+            // check if activity has spots left (could be only 1 player / stream):
+            message.Append($"Signups are available now, pray thee earn a spot or be left for the Uruk-hai! (http://abreu.wiki/timeline)");
+            await this.client.SendMessageAsync(message.ToString());
+        }
     }
 }
