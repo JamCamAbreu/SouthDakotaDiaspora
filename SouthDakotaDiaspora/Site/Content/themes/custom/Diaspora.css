@@ -94,10 +94,10 @@ li.header-selected > a {
     margin-top: 4px;
 }
 .timeline-table td:nth-child(2) {
-    width: 14%;
+    width: 12%;
 }
 .timeline-table td:nth-child(3) {
-    width: 12%;
+    width: 17%;
 }
 .timeline-table td:nth-child(4) {
     width: 8%;
@@ -106,13 +106,16 @@ li.header-selected > a {
     width: 8%;
 }
 .timeline-table td:nth-child(6) {
-    width: 8%;
+    width: 5%;
 }
 .timeline-table td:nth-child(7) {
-    width: 20%;
+    width: 8%;
 }
 .timeline-table td:nth-child(8) {
-    width: 8%;
+    width: 15%;
+}
+.timeline-table td:nth-child(9) {
+    width: 5%;
 }
 
 /* TIMELINE HEADER */

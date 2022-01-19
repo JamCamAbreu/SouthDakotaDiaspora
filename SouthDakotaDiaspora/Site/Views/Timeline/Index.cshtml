@@ -111,11 +111,19 @@
         }
     </td>
     <td>
-        @using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))
+        @if (Site.Helpers.GlobalMethods.GetCurrentUserId(this.Session) != null && item.Host != null)
         {
-            @Html.AntiForgeryToken()
-            <input class="timeline-today buttonless-button" type="submit" value="Delete" />
+            int? userid = Site.Helpers.GlobalMethods.GetCurrentUserId(this.Session);
+            if (item.HostId == userid)
+            {
+                using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input class="timeline-today buttonless-button" type="submit" value="Delete" />
+                }
+            }
         }
+
     </td>
 </tr>
     }
@@ -167,10 +175,17 @@
         }
     </td>
     <td>
-        @using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))
+        @if (Site.Helpers.GlobalMethods.GetCurrentUserId(this.Session) != null && item.Host != null)
         {
-            @Html.AntiForgeryToken()
-            <input class="timeline-future buttonless-button" type="submit" value="Delete" />
+            int? userid = Site.Helpers.GlobalMethods.GetCurrentUserId(this.Session);
+            if (item.HostId == userid)
+            {
+                using (Html.BeginForm("Delete", "Timeline", new { id = item.TimelineEventId }, FormMethod.Post, new { @class = "buttonless-button" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input class="timeline-future buttonless-button" type="submit" value="Delete" />
+                }
+            }
         }
 
     </td>

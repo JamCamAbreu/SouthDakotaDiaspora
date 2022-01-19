@@ -35,7 +35,7 @@ namespace Site.Controllers
         public ActionResult Index()
         {
             TimelineIndexViewModel model = new TimelineIndexViewModel();
-            int MAX_PER_TABLE = 4;
+            int MAX_PER_TABLE = 6;
 
             TimeZoneInfo localtimezone = TimeZoneInfo.Local; // server time (mountain)
             if (Session["TimeZoneInfo"] != null && Session["TimeZoneInfo"] is TimeZoneInfo)
@@ -44,15 +44,16 @@ namespace Site.Controllers
             }
             model.TimeZoneName = localtimezone.StandardName;
 
-            List<TimelineEvent> pastEvents = this.timelineevents.GetBeforeToday().ToList();
+            List<TimelineEvent> allPastEvents = this.timelineevents.GetBeforeToday().ToList();
+            List<TimelineEvent> pastEvents = allPastEvents.Take(MAX_PER_TABLE).Reverse().ToList();
             int i;
-            for (i = Math.Max(0, pastEvents.Count - (1 + MAX_PER_TABLE)); i < Math.Min(pastEvents.Count, MAX_PER_TABLE); i++)
+
+            foreach (TimelineEvent pastEvent in pastEvents)
             {
-                TimelineEvent pastEvent = pastEvents[i];
                 Activity activity = this.activities.Get(pastEvent.ActivityId);
                 model.PastEvents.Add(new TimelineEventInfo(pastEvent, localtimezone, activity));
             }
-            if (pastEvents.Count > MAX_PER_TABLE) { model.MorePastEvents = true; }
+            if (allPastEvents.Count > MAX_PER_TABLE) { model.MorePastEvents = true; }
 
             List<TimelineEvent> todayEvents = this.timelineevents.GetToday().ToList();
             foreach (TimelineEvent todayEvent in todayEvents)

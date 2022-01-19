@@ -72,7 +72,7 @@ namespace Data.Services
                 .Include(t => t.Users)
                 .Include(t => t.Activity)
                 .ToList();
-            return items.Where(tevent => tevent.EndTime < DateTime.Now).OrderBy(tevent => tevent.StartTime);
+            return items.Where(tevent => tevent.EndTime < DateTime.Now).OrderByDescending(tevent => tevent.StartTime);
         }
         public IEnumerable<TimelineEvent> GetToday()
         {
