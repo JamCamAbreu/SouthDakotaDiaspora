@@ -143,9 +143,19 @@ namespace Site.Controllers
                 }
             }
 
+            tevent.MaxAttendees = 0;
+            if (string.IsNullOrEmpty(form["PlayerLimitUnlimited"]) && !string.IsNullOrEmpty(form["PlayerLimit"]))
+            {
+                int max;
+                if (int.TryParse(form["PlayerLimit"], out max))
+                {
+                    tevent.MaxAttendees = max;
+                }
+            }
+
             if (!string.IsNullOrEmpty(form["NotifyCreated"]))
             {
-                _ = this.discordNotifier.SendCreatedEvent(tevent);
+                _ = this.discordNotifier.SendCreatedEvent(tevent, tevent.MaxAttendees);
             }
 
             if (string.IsNullOrEmpty(form["NotifyOneHour"]))

@@ -59,6 +59,15 @@
                 }
             });
 
+            $("#playerlimitunlimitedcheckbox").change(function () {
+                if ($("#playerlimitunlimitedcheckbox:checked").val()) {
+                    $("#playerlimitslider").prop("disabled", true);
+                }
+                else {
+                    $("#playerlimitslider").prop("disabled", false);
+                }
+            });
+
         });
     </script>
 }
@@ -128,21 +137,36 @@
         </div>
     </div>
 
+    <h3 class="text-left">Event Capacity</h3>
+    <div class="form-group col-md-12">
+        <div class="col-md-1">
+            <label class="form-label" for="playerlimitunlimitedcheckbox">Unlimited</label>
+            <input name="PlayerLimitUnlimited" class="checkbox-inline" checked="checked" type="checkbox" id="playerlimitunlimitedcheckbox" />
+        </div>
+
+        <div class="col-md-11">
+            <label class="form-label" for="playerlimitslider">Maximum Attendees (includes host)</label>
+            <input name="PlayerLimit" class="form-range" disabled="disabled" type="range" min="1" max="16" value="1" id="playerlimitslider" oninput="this.nextElementSibling.value = this.value" />
+            <output>1</output>
+        </div>
+    </div>
+
+
     <hr />
 
     <div class="form-group">
         <h3 class="text-left">Notifications</h3>
         <p><i>Notifications are used in discord to help you promote your event.</i></p>
         <div>
-            <input name="NotifyCreated" class="checkbox-inline" type="checkbox" id="notifycreatedcheckbox" />
+            <input name="NotifyCreated" class="checkbox-inline" checked="checked" type="checkbox" id="notifycreatedcheckbox" />
             <label>Notify when created</label>
         </div>
         <div>
-            <input name="NotifyOneHour" class="checkbox-inline" type="checkbox" id="notifyonehourcheckbox" />
+            <input name="NotifyOneHour" class="checkbox-inline" checked="checked" type="checkbox" id="notifyonehourcheckbox" />
             <label>Notify one hour before</label>
         </div>
         <div>
-            <input name="NotifyStarting" class="checkbox-inline" type="checkbox" id="notifystartingcheckbox" />
+            <input name="NotifyStarting" class="checkbox-inline" checked="checked" type="checkbox" id="notifystartingcheckbox" />
             <label>Notify on event start</label>
         </div>
 

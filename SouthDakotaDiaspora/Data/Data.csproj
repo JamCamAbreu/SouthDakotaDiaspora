@@ -99,6 +99,10 @@
     <Compile Include="Migrations\202112302115005_Initial.designer.cs">
       <DependentUpon>202112302115005_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201190200458_TimelineEventAddMaxAttendees.cs" />
+    <Compile Include="Migrations\202201190200458_TimelineEventAddMaxAttendees.designer.cs">
+      <DependentUpon>202201190200458_TimelineEventAddMaxAttendees.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Book.cs" />
@@ -141,6 +145,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202112302115005_Initial.resx">
       <DependentUpon>202112302115005_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201190200458_TimelineEventAddMaxAttendees.resx">
+      <DependentUpon>202201190200458_TimelineEventAddMaxAttendees.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -27,6 +27,8 @@ namespace Site.Models.Timeline
         public string Host { get; set; }
         public int? HostId { get; set; }
         public int TimelineEventId { get; set; }
+        public int MaxAttendees { get; set; }
+        public string MaxAttendeesDisplay { get; set; }
         public TimelineEventInfo () { }
         public TimelineEventInfo(TimelineEvent tevent, TimeZoneInfo localtimezone, Activity activityinfo)
         {
@@ -78,7 +80,15 @@ namespace Site.Models.Timeline
             }
 
             this.Type = GetTypeSymbol(activityinfo.ActivityType);
-
+            this.MaxAttendees = tevent.MaxAttendees;
+            if (tevent.MaxAttendees > 0)
+            {
+                this.MaxAttendeesDisplay = tevent.MaxAttendees.ToString();
+            }
+            else
+            {
+                this.MaxAttendeesDisplay = "Unlimited";
+            }
         }
 
         protected string GetTypeSymbol(string activityType)

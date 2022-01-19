@@ -50,9 +50,9 @@ namespace Data.Services
                 "Concealed within his fortress, the Lord of Mordor sees all",
                 "Time?! What time do you think we have?",
                 "Smoke rises from the mountain of Doom.",
-                "Tens of thousands.",
+                "Not thousands...TENS of thousands.",
                 "If the wall is breached, Helm’s Deep will fall.",
-                "Gandalf the White. Gandalf the Fool! Does he seek to humble me with his newfound piety?",
+                "Gandalf the White? Gandalf the Fool! Does he seek to humble me with his newfound piety?",
                 "Your love of the Halfings’ leaf has clearly slowed your mind."
             };
             random = new Random();
@@ -151,7 +151,7 @@ namespace Data.Services
             }
         }
 
-        public async Task SendCreatedEvent(TimelineEvent tevent)
+        public async Task SendCreatedEvent(TimelineEvent tevent, int maxAttendees)
         {
             if (tevent == null || tevent.Activity == null || tevent.Host == null)
             {
@@ -161,9 +161,11 @@ namespace Data.Services
             message.Append("Prithee, listen well!\n");
             message.Append($"{tevent.Activity.Name} - ({tevent.Title}) hosted by {tevent.Host.FirstName} will begin on {tevent.StartTime.ToShortDateString()} {tevent.StartTime.ToShortTimeString()} (MST)\n");
 
-            // check if activity has spots left (could be only 1 player / stream):
-            message.Append($"Signups are available now, pray thee earn a spot or be left for the Uruk-hai! (http://abreu.wiki/timeline)");
-            await this.client.SendMessageAsync(message.ToString());
+            if (maxAttendees > 0)
+            {
+                message.Append($"Signups are available now, pray thee earn a spot ({maxAttendees} total spots) or be left for the Uruk-hai! (http://abreu.wiki/timeline)");
+                await this.client.SendMessageAsync(message.ToString());
+            }
         }
     }
 }

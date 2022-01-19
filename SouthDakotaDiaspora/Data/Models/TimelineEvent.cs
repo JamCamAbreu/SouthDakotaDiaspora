@@ -39,5 +39,6 @@ namespace Data.Models
         public ICollection<Comment> Comments { get; set; }
         public bool SentNotificationStarting { get; set; }
         public bool SentNotificationSoon { get; set; }
+        public int MaxAttendees { get; set; }
     }
 }
